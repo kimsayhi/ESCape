@@ -10,7 +10,7 @@ import EyesHiddenIcon from '../../../public/icons/icon_eyes_hidden.svg'
 
 import GoogleOauthButton from '@/components/auth/GoogleOauthButton'
 import KakoOauthButton from '@/components/auth/KakoOauthButton'
-import PrimaryButton from '@/components/@shared/button/PrimaryButton'
+import PrimaryButton from '@/components/@shared/button/CustomButton'
 import { Spinner } from 'flowbite-react'
 import { useForm } from 'react-hook-form'
 
@@ -44,7 +44,7 @@ export default function SignInPage() {
   }
 
   return (
-    <div className="mt-[200px] max-w-[640px] text-white p-3 mx-auto">
+    <div className="mx-auto mt-[200px] max-w-[640px] p-3 text-white">
       <div className="flex justify-center">
         <Link href="/" className="inline-block py-10">
           <Image width={200} src={Logo} alt="로고 이미지" />
@@ -98,12 +98,12 @@ export default function SignInPage() {
           {errors.password && <p className="text-red-500 mt-1">{errors.password.message}</p>}
         </div>
         <div className="pt-2">
-          <PrimaryButton type="submit" active={true}>
+          <PrimaryButton style="primary" type="submit" active={true}>
             {loading ? <Spinner aria-label="로딩 중..." size="md" /> : '로그인'}
           </PrimaryButton>
         </div>
       </form>
-      <div className="text-center mt-10">
+      <div className="mt-10 text-center">
         <p>
           처음이신가요?{' '}
           <Link href="/signup" className="mr-1">
@@ -111,7 +111,7 @@ export default function SignInPage() {
           </Link>
           하러가기
         </p>
-        <p className="text-brand-gray-dark my-3">SNS로 바로 시작하기</p>
+        <p className="my-3 text-brand-gray-dark">SNS로 바로 시작하기</p>
         <div className="flex justify-center gap-4">
           <GoogleOauthButton />
           <KakoOauthButton />

@@ -7,7 +7,7 @@ import Image from 'next/image'
 import Logo from '../../../public/images/logo.svg'
 import EyesShowIcon from '../../../public/icons/icon_eyes_show.svg'
 import EyesHiddenIcon from '../../../public/icons/icon_eyes_hidden.svg'
-import PrimaryButton from '@/components/@shared/button/PrimaryButton'
+import PrimaryButton from '@/components/@shared/button/CustomButton'
 import { useForm } from 'react-hook-form'
 import { Spinner } from 'flowbite-react'
 
@@ -56,7 +56,7 @@ export default function SignupPage() {
   const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false)
 
   return (
-    <div className="mt-[200px] max-w-[640px] text-white p-3 mx-auto">
+    <div className="mx-auto mt-[200px] max-w-[640px] p-3 text-white">
       <div className="flex justify-center">
         <Link href="/" className="inline-block py-10">
           <Image width={200} src={Logo} alt="로고 이미지" />
@@ -164,13 +164,13 @@ export default function SignupPage() {
           )}
         </div>
         <div className="pt-2">
-          <PrimaryButton type="submit" onClick={() => {}} active={true} disabled={!isValid}>
+          <PrimaryButton style="primary"  type="submit" onClick={() => {}} active={true} disabled={!isValid}>
             {loading ? <Spinner aria-label="로딩 중..." size="md" /> : '가입하기'}
           </PrimaryButton>
         </div>
       </form>
 
-      <div className="text-center mt-10">
+      <div className="mt-10 text-center">
         <p>
           이미 회원이신가요?{' '}
           <Link href="/signin" className="mr-1">

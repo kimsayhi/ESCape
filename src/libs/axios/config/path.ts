@@ -1,64 +1,64 @@
 export const API_PATH = {
   user: {
-    me: "/user/me",
-    ranking: "/user/ranking",
+    me: '/user/me',
+    ranking: '/user/ranking',
     user(userId: string | number) {
-      return `/user/${userId}`;
+      return `/user/${userId}`
     },
     createdProducts(userId: string | number) {
-      return `/user/${userId}/created-products`;
+      return `/user/${userId}/created-products`
     },
     reviewedProducts(userId: string | number) {
-      return `/user/${userId}/reviewed-products`;
+      return `/user/${userId}/reviewed-products`
     },
     followees(userId: string | number) {
-      return `/user/${userId}/followees`;
+      return `/user/${userId}/followees`
     },
     followers(userId: string | number) {
-      return `/user/${userId}/followers`;
+      return `/user/${userId}/followers`
     },
   },
   review: {
-    default: "/reviews",
+    default: '/reviews',
     like(reviewId: string | number) {
-      return `/reviews/${reviewId}/like`;
+      return `/reviews/${reviewId}/like`
     },
     detail(reviewId: string | number) {
-      return `/reviews/${reviewId}`;
+      return `/reviews/${reviewId}`
     },
   },
   product: {
-    default: "/products",
+    default: '/products',
     detail(productId: string | number) {
-      return `/products/${productId}`;
+      return `/products/${productId}`
     },
     reviews(productId: string | number) {
-      return `/products/${productId}/reviews`;
+      return `/products/${productId}/reviews`
     },
     favorite(productId: string | number) {
-      return `/products/${productId}/favorite`;
+      return `/products/${productId}/favorite`
     },
   },
   oauth: {
-    default: "/oauthApps",
+    default: '/oauthApps',
   },
   image: {
-    default: "/images/upload",
+    default: '/images/upload',
   },
   follow: {
-    default: "/follow ",
+    default: '/follow ',
   },
   category: {
-    default: "/categories",
+    default: '/categories',
   },
   auth: {
-    signUp: "/auth/signUp",
-    signIn: "/auth/signIn",
+    signUp: '/auth/signUp',
+    signIn: '/auth/signIn',
     easySignUp(provider: string) {
-      return `/auth/signUp/${provider}`;
+      return `/auth/signUp/${provider}`
     },
     easySignIn(provider: string) {
-      return `/auth/signIn/${provider}`;
+      return `/auth/signIn/${provider}`
     },
   },
-};
+}

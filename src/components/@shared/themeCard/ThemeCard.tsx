@@ -31,15 +31,15 @@ export default function ThemeCard({ data }: ThemeCardProps) {
 
   return (
     <button>
-      <div className="flex flex-col justify-start items-start gap-[10px] max-w-[300px] p-[10px] bg-[#252530] rounded-lg border border-unactive md:p-[20px]">
+      <div className="flex max-w-[300px] flex-col items-start justify-start gap-[10px] rounded-lg border border-unactive bg-[#252530] p-[10px] md:p-[20px]">
         <Image className="m-auto" src={image} alt={`${name} 이미지`} width={140} height={98} />
-        <div className="flex flex-col justify-start items-start gap-[5px]">
-          <h4 className="text-brand-white text-sm font-medium">{name}</h4>
-          <div className="flex justify-start items-start gap-[10px] ">
+        <div className="flex flex-col items-start justify-start gap-[5px]">
+          <h4 className="text-sm font-medium text-brand-white">{name}</h4>
+          <div className="flex items-start justify-start gap-[10px]">
             {cardDetailContents.map((cardDetailContent) => (
-              <div className="flex justify-center items-center gap-[5px]">
+              <div className="flex items-center justify-center gap-[5px]">
                 <Image src={cardDetailContent.icon} alt={`${cardDetailContent.alt} 아이콘`} width={12} height={12} />
-                <p className="text-brand-gray-light text-xs font-light">{cardDetailContent.value}</p>
+                <p className="text-xs font-light text-brand-gray-light">{cardDetailContent.value}</p>
               </div>
             ))}
           </div>

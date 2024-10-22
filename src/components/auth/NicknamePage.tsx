@@ -2,7 +2,7 @@ import { useAuth } from '@/contexts/AuthProvider'
 import Link from 'next/link'
 import Image from 'next/image'
 import Logo from '../../../public/images/logo.svg'
-import PrimaryButton from '@/components/@shared/button/PrimaryButton'
+import PrimaryButton from '@/components/@shared/button/CustomButton'
 import { OAuthProviders } from '@/dtos/AuthDto'
 import { Spinner } from 'flowbite-react'
 
@@ -34,7 +34,7 @@ export default function NicknamePage({ provider }: { provider?: OAuthProviders }
           {errors.nickname && <p className="text-red-500 text-sm mt-2">{errors.nickname.message}</p>}
         </div>
         <div className="pt-2">
-          <PrimaryButton type="submit" active={true}>
+          <PrimaryButton style="primary" type="submit" active={true}>
             {loading ? <Spinner aria-label="로딩 중..." size="md" /> : '가입하기'}
           </PrimaryButton>
         </div>

@@ -8,11 +8,23 @@ body {
   max-width: 100vw;
   min-height: 100vh;
   overflow-x: hidden;
-  font-family: "Pretendard Variable", Pretendard, -apple-system,
-    BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
-    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
-    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
-  @apply bg-body-bg;
+  font-family:
+    'Pretendard Variable',
+    Pretendard,
+    -apple-system,
+    BlinkMacSystemFont,
+    system-ui,
+    Roboto,
+    'Helvetica Neue',
+    'Segoe UI',
+    'Apple SD Gothic Neo',
+    'Noto Sans KR',
+    'Malgun Gothic',
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol',
+    sans-serif;
+  @apply bg-body-bg text-brand-white;
 }
 
 img,
@@ -41,8 +53,8 @@ select {
 }
 
 /* input type number 에서 화살표 제거 */
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -54,8 +66,8 @@ input::-ms-clear {
 }
 
 /* input type password 에서 비밀번호 보이기/숨기기 버튼 제거 */
-input[type="password"]::-ms-reveal,
-input[type="password"]::-ms-clear {
+input[type='password']::-ms-reveal,
+input[type='password']::-ms-clear {
   display: none;
 }
 
@@ -81,24 +93,24 @@ table {
   border-spacing: 0;
 }
 
-input[type="radio"] {
+input[type='radio'] {
   -webkit-appearance: none; /* 웹킷 브라우저에서 기본 스타일 제거 */
   -moz-appearance: none; /* 모질라 브라우저에서 기본 스타일 제거 */
   appearance: none; /* 기본 브라우저에서 기본 스타일 제거 */
 }
 
-[type="text"]:focus,
-[type="email"]:focus,
-[type="url"]:focus,
-[type="password"]:focus,
-[type="number"]:focus,
-[type="date"]:focus,
-[type="datetime-local"]:focus,
-[type="month"]:focus,
-[type="search"]:focus,
-[type="tel"]:focus,
-[type="time"]:focus,
-[type="week"]:focus,
+[type='text']:focus,
+[type='email']:focus,
+[type='url']:focus,
+[type='password']:focus,
+[type='number']:focus,
+[type='date']:focus,
+[type='datetime-local']:focus,
+[type='month']:focus,
+[type='search']:focus,
+[type='tel']:focus,
+[type='time']:focus,
+[type='week']:focus,
 [multiple]:focus,
 textarea:focus,
 select:focus {

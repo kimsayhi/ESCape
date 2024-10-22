@@ -2,7 +2,8 @@ import { useAuth } from '@/contexts/AuthProvider'
 import Link from 'next/link'
 import Image from 'next/image'
 import Logo from '../../../public/images/logo.svg'
-import PrimaryButton from '@/components/@shared/button/PrimaryButton'
+import PrimaryButton from '@/components/@shared/button/CustomButton'
+
 import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
@@ -101,7 +102,7 @@ export default function GoogleSignupPage() {
           {errors.nickname && <p className="text-red-500 text-sm mt-2">{errors.nickname.message}</p>}
         </div>
         <div className="pt-2">
-          <PrimaryButton type="submit" active={loading ? false : true}>
+          <PrimaryButton style="primary" type="submit" active={loading ? false : true}>
             {loading ? <Spinner aria-label="로딩 중..." size="md" /> : '가입하기'}
           </PrimaryButton>
         </div>

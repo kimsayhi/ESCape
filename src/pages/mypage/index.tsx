@@ -1,6 +1,6 @@
-import Profile from "@/components/mypage/Profile";
-import Activity from "@/components/mypage/Activity";
-import ThemeCardList from "@/components/mypage/ThemeCardList";
+import Profile from '@/components/mypage/Profile'
+import Activity from '@/components/mypage/Activity'
+import ThemeCardList from '@/components/mypage/ThemeCardList'
 
 export default function MyPage() {
   return (
@@ -15,5 +15,5 @@ export default function MyPage() {
         <ThemeCardList />
       </div>
     </>
-  );
+  )
 }

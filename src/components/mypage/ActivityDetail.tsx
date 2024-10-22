@@ -10,16 +10,16 @@ interface ActivityDetailProps {
 
 export default function ActivityDetail({ title, icon, value, isCategory }: ActivityDetailProps) {
   return (
-    <div className="flex flex-col justify-center items-center gap-[15px] px-[21px] py-5 bg-[#252530] rounded-lg border border-unactive">
-      <h4 className="text-center text-brand-gray-light text-sm font-medium leading-tight">{title}</h4>
+    <div className="flex flex-col items-center justify-center gap-[15px] rounded-lg border border-unactive bg-[#252530] px-[21px] py-5">
+      <h4 className="text-center text-sm font-medium leading-tight text-brand-gray-light">{title}</h4>
       {isCategory ? (
-        <p className="px-2 py-1 bg-[#757aff]/10 rounded-md justify-center items-center gap-2.5 text-center text-brand-indigo text-xs font-normal">
+        <p className="items-center justify-center gap-2.5 rounded-md bg-[#757aff]/10 px-2 py-1 text-center text-xs font-normal text-brand-indigo">
           {value}
         </p>
       ) : (
-        <div className="flex justify-start items-center gap-[5px]">
+        <div className="flex items-center justify-start gap-[5px]">
           <Image src={icon} alt={`${title} 아이콘`} width={20} height={20} />
-          <p className="text-brand-white text-xl font-normal">{value}</p>
+          <p className="text-xl font-normal text-brand-white">{value}</p>
         </div>
       )}
     </div>
