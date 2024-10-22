@@ -4,96 +4,104 @@
 
 html,
 body {
-    height: 100%;
-    max-width: 100vw;
-    min-height: 100vh;
-    overflow-x: hidden;
-    font-family:
-            "Pretendard Variable",
-            Pretendard,
-            -apple-system,
-            BlinkMacSystemFont,
-            system-ui,
-            Roboto,
-            "Helvetica Neue",
-            "Segoe UI",
-            "Apple SD Gothic Neo",
-            "Noto Sans KR",
-            "Malgun Gothic",
-            "Apple Color Emoji",
-            "Segoe UI Emoji",
-            "Segoe UI Symbol",
-            sans-serif;
+  height: 100%;
+  max-width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+  font-family: "Pretendard Variable", Pretendard, -apple-system,
+    BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  @apply bg-body-bg;
 }
 
 img,
 svg {
-    max-width: 100%;
-    height: auto;
+  max-width: 100%;
+  height: auto;
 }
 
 a {
-    color: inherit;
-    text-decoration: none;
-    cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 button,
 input,
 textarea,
 select {
-    border: none;
-    outline: none;
-    background: none;
-    font-family: inherit;
-    font-size: inherit;
-    color: inherit;
-    cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  cursor: pointer;
 }
 
 /* input type number 에서 화살표 제거 */
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 
 /* IE10 이상에서 input box 에 추가된 지우기 버튼 제거 */
 input::-ms-clear {
-    display: none;
+  display: none;
 }
 
 /* input type password 에서 비밀번호 보이기/숨기기 버튼 제거 */
 input[type="password"]::-ms-reveal,
 input[type="password"]::-ms-clear {
-    display: none;
+  display: none;
 }
 
 textarea {
-    resize: none;
+  resize: none;
 }
 
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 ol,
 ul {
-    list-style: none;
+  list-style: none;
 }
 
 table {
-    border-collapse: collapse;
-    border-spacing: 0;
+  border-collapse: collapse;
+  border-spacing: 0;
 }
 
 input[type="radio"] {
-    -webkit-appearance: none; /* 웹킷 브라우저에서 기본 스타일 제거 */
-    -moz-appearance: none; /* 모질라 브라우저에서 기본 스타일 제거 */
-    appearance: none; /* 기본 브라우저에서 기본 스타일 제거 */
+  -webkit-appearance: none; /* 웹킷 브라우저에서 기본 스타일 제거 */
+  -moz-appearance: none; /* 모질라 브라우저에서 기본 스타일 제거 */
+  appearance: none; /* 기본 브라우저에서 기본 스타일 제거 */
+}
+
+[type="text"]:focus,
+[type="email"]:focus,
+[type="url"]:focus,
+[type="password"]:focus,
+[type="number"]:focus,
+[type="date"]:focus,
+[type="datetime-local"]:focus,
+[type="month"]:focus,
+[type="search"]:focus,
+[type="tel"]:focus,
+[type="time"]:focus,
+[type="week"]:focus,
+[multiple]:focus,
+textarea:focus,
+select:focus {
+  outline: 1px solid transparent;
+  outline-offset: 1px;
 }
