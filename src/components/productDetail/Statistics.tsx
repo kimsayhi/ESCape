@@ -27,7 +27,7 @@ const statisticsDetailContents = [
 
 export default function Statistics() {
   return (
-    <div className={'w-full'}>
+    <div className={'mx-auto max-w-[940px]'}>
       <h3 className={'mb-[30px] text-lg font-semibold text-brand-white'}>{'상품 통계'}</h3>
       <div className={'grid grid-cols-3 gap-[10px] xl:gap-5'}>
         {statisticsDetailContents.map((statisticsDetailContent) => (
