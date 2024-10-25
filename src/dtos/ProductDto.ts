@@ -65,7 +65,7 @@ export interface ProductReviewListTypes {
   isLiked: true
   likeCount: number
   content: string
-  rating: string
+  rating: number
   id: number
 }
 
