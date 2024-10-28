@@ -1,14 +1,14 @@
 import React from 'react'
 import Image from 'next/image'
 
-interface ActivityDetailProps {
+interface ActivityCardProps {
   title: string
   icon: string
-  value: string
+  value: string | number
   isCategory: boolean
 }
 
-export default function ActivityDetail({ title, icon, value, isCategory }: ActivityDetailProps) {
+export default function ActivityCard({ title, icon, value, isCategory }: ActivityCardProps) {
   return (
     <div className="flex flex-col items-center justify-center gap-[15px] rounded-lg border border-unactive bg-[#252530] px-[21px] py-5">
       <h4 className="text-center text-sm font-medium leading-tight text-brand-gray-light">{title}</h4>

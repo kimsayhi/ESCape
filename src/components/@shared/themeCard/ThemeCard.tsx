@@ -1,8 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
-import starIcon from '../../../../public/icons/star_icon.svg'
-import commentIcon from '../../../../public/icons/comment_icon.svg'
-import heartIcon from '../../../../public/icons/heart_icon.svg'
+import starIcon from '@icons/star_icon.svg'
+import commentIcon from '@icons/comment_icon.svg'
+import heartIcon from '@icons/heart_icon.svg'
 import { ProductTypes } from '@/dtos/ProductDto'
 
 interface ThemeCardProps {

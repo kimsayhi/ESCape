@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { signUp } from '@/libs/axios/auth/auth'
 import { useAuth } from '@/contexts/AuthProvider'
@@ -7,10 +7,9 @@ import Image from 'next/image'
 import Logo from '../../../public/images/logo.svg'
 import EyesShowIcon from '../../../public/icons/icon_eyes_show.svg'
 import EyesHiddenIcon from '../../../public/icons/icon_eyes_hidden.svg'
-import Button from '@/components/@shared/button/CustomButton'
+import PrimaryButton from '@/components/@shared/button/CustomButton'
 import { useForm } from 'react-hook-form'
 import { Spinner } from 'flowbite-react'
-import CustomButton from '@/components/@shared/button/CustomButton'
 
 export default function SignupPage() {
   const {
@@ -23,7 +22,13 @@ export default function SignupPage() {
   })
   const [loading, setLoading] = useState(false)
   const router = useRouter()
-  const { login } = useAuth()
+  const { user, login, isPending } = useAuth()
+
+  useEffect(() => {
+    if (!isPending && user) {
+      router.replace('/')
+    }
+  }, [isPending, user, router])
 
   const onSubmit = async (data) => {
     setLoading(true)
@@ -62,9 +67,9 @@ export default function SignupPage() {
           <label className="block pb-1">이메일</label>
           <input
             type="text"
-            className={`w-full rounded-xl border-solid bg-brand-black-medium ${
+            className={`bg-brand-black-medium w-full rounded-xl border-solid ${
               errors.email ? 'border-red-500' : 'border-brand-black-light'
-            } px-6 py-4 text-brand-gray-dark focus:outline-blue-gradation`}
+            } py-4 px-6 text-brand-gray-dark focus:outline-blue-gradation`}
             placeholder="이메일을 입력해주세요"
             {...register('email', {
               required: '이메일은 필수 입력입니다.',
@@ -74,15 +79,15 @@ export default function SignupPage() {
               },
             })}
           />
-          {errors.email && <p className="mt-2 text-sm text-red-500">{errors.email.message}</p>}
+          {errors.email && <p className="text-red-500 text-sm mt-2">{errors.email.message}</p>}
         </div>
         <div className="mb-5">
           <label className="block pb-1">닉네임</label>
           <input
             type="text"
-            className={`w-full rounded-xl border-solid bg-brand-black-medium ${
+            className={`bg-brand-black-medium w-full rounded-xl border-solid ${
               errors.nickname ? 'border-red-500' : 'border-brand-black-light'
-            } px-6 py-4 text-brand-gray-dark focus:outline-blue-gradation`}
+            } py-4 px-6 text-brand-gray-dark focus:outline-blue-gradation`}
             placeholder="닉네임을 입력해주세요"
             {...register('nickname', {
               required: '닉네임은 필수 입력입니다.',
@@ -92,16 +97,16 @@ export default function SignupPage() {
               },
             })}
           />
-          {errors.nickname && <p className="mt-2 text-sm text-red-500">{errors.nickname.message}</p>}
+          {errors.nickname && <p className="text-red-500 text-sm mt-2">{errors.nickname.message}</p>}
         </div>
         <div className="mb-5">
           <label className="block pb-1">비밀번호</label>
           <div className="relative">
             <input
               type={showPassword ? 'text' : 'password'}
-              className={`w-full rounded-xl border-solid bg-brand-black-medium ${
+              className={`bg-brand-black-medium w-full rounded-xl border-solid ${
                 errors.password ? 'border-red-500' : 'border-brand-black-light'
-              } px-6 py-4 text-brand-gray-dark focus:outline-blue-gradation`}
+              } py-4 px-6 text-brand-gray-dark focus:outline-blue-gradation`}
               placeholder="비밀번호는 필수 입력입니다."
               {...register('password', {
                 required: '비밀번호는 필수 항목입니다.',
@@ -125,16 +130,16 @@ export default function SignupPage() {
               />
             </button>
           </div>
-          {errors.password && <p className="mt-2 text-sm text-red-500">{errors.password.message}</p>}
+          {errors.password && <p className="text-red-500 text-sm mt-2">{errors.password.message}</p>}
         </div>
         <div className="mb-5">
           <label className="block pb-1">비밀번호 확인</label>
           <div className="relative">
             <input
               type={showPasswordConfirmation ? 'text' : 'password'}
-              className={`w-full rounded-xl border-solid bg-brand-black-medium ${
+              className={`bg-brand-black-medium w-full rounded-xl border-solid ${
                 errors.passwordConfirmation ? 'border-red-500' : 'border-brand-black-light'
-              } px-6 py-4 text-brand-gray-dark focus:outline-blue-gradation`}
+              } py-4 px-6 text-brand-gray-dark focus:outline-blue-gradation`}
               placeholder="비밀번호를 다시 입력해주세요"
               {...register('passwordConfirmation', {
                 required: '비밀번호 확인을 입력해주세요.',
@@ -155,13 +160,13 @@ export default function SignupPage() {
             </button>
           </div>
           {errors.passwordConfirmation && (
-            <p className="mt-2 text-sm text-red-500">{errors.passwordConfirmation.message}</p>
+            <p className="text-red-500 text-sm mt-2">{errors.passwordConfirmation.message}</p>
           )}
         </div>
         <div className="pt-2">
-          <CustomButton type="submit" onClick={() => {}} active={isValid}>
+          <PrimaryButton style="primary"  type="submit" onClick={() => {}} active={true} disabled={!isValid}>
             {loading ? <Spinner aria-label="로딩 중..." size="md" /> : '가입하기'}
-          </CustomButton>
+          </PrimaryButton>
         </div>
       </form>
 

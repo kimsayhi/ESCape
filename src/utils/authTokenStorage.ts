@@ -8,4 +8,5 @@ export function saveTokens(tokens: AuthTokens) {
 /** 저장된 accessToken을 localStorage에서 제거하는 함수 */
 export function removeTokens() {
   localStorage.removeItem('accessToken')
+  localStorage.removeItem('authCode')
 }

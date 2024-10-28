@@ -5,7 +5,7 @@ export interface ProductTypes {
   categoryId: number
   favoriteCount: number
   reviewCount: number
-  rating: string
+  rating: number
   image: string
   name: string
   id: number
@@ -22,7 +22,7 @@ export interface CategoryTypes {
 }
 
 export interface CategoryMetricTypes {
-  rating: string
+  rating: number
   favoriteCount: number
   reviewCount: number
 }
@@ -30,9 +30,9 @@ export interface CategoryMetricTypes {
 export interface ProductDetailTypes {
   id: number
   name: string
-  description: string
+  description: DescriptionTypes
   image: string
-  rating: string
+  rating: number
   reviewCount: number
   favoriteCount: number
   categoryId: number
@@ -42,6 +42,17 @@ export interface ProductDetailTypes {
   isFavorite: boolean
   category: CategoryTypes
   categoryMetric: CategoryMetricTypes
+}
+// Description 타입 지정
+export interface DescriptionTypes {
+  loc: string
+  spot: string
+  des: string
+  lev: number
+  time: number
+  hor: number
+  act: number
+  url: string
 }
 
 export interface UserTypes {

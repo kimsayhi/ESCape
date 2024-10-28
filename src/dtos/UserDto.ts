@@ -32,26 +32,14 @@ export interface RankingTypes extends CommonUserTypes {
  * ProductDto.ts 파일에 있는 ProductTypes, ProductListTypes와 같음
  */
 
-export interface FolloweeTypes extends CommonUserTypes {}
+export interface FollowTypes extends CommonUserTypes {}
 
-export interface FolloweeListTypes {
-  follower: FolloweeTypes
+export interface FollowListTypes {
+  follow: FollowTypes
   id: number
 }
 
-export interface FolloweesResponseTypes {
+export interface FollowResponseTypes {
   nextCursor: number
-  list: FolloweeListTypes[]
-}
-
-export interface FollowerTypes extends CommonUserTypes {}
-
-export interface FollowerListTypes {
-  follower: FollowerTypes
-  id: number
-}
-
-export interface FollowersResponseTypes {
-  nextCursor: number
-  list: FollowerListTypes[]
+  list: FollowListTypes[]
 }

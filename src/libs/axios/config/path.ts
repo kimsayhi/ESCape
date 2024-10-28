@@ -11,6 +11,9 @@ export const API_PATH = {
     reviewedProducts(userId: string | number) {
       return `/user/${userId}/reviewed-products`
     },
+    favoriteProducts(userId: string | number) {
+      return `/user/${userId}/favorite-products`
+    },
     followees(userId: string | number) {
       return `/user/${userId}/followees`
     },
