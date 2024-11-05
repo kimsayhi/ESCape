@@ -6,28 +6,60 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint . ",
+    "format": "prettier --write . && eslint --fix",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.59.3",
     "@tanstack/react-query-devtools": "^5.59.3",
+    "@typescript-eslint/eslint-plugin": "^8.9.0",
+    "@typescript-eslint/parser": "^8.9.0",
     "axios": "^1.7.7",
+    "classnames": "^2.5.1",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsx-a11y": "^6.10.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react": "^7.37.1",
+    "eslint-plugin-react-hooks": "^4.6.2",
     "flowbite": "^2.5.2",
     "flowbite-react": "^0.10.2",
+    "framer-motion": "^11.11.11",
     "next": "14.2.15",
     "react": "^18",
     "react-dom": "^18",
-    "tailwind-scrollbar-hide": "^1.1.7"
+    "react-hook-form": "^7.53.0",
+    "react-icons": "^5.3.0",
+    "tailwind-scrollbar-hide": "^1.1.7",
+    "ts-pattern": "^5.5.0"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.4.20",
-    "eslint": "^8",
+    "eslint": "^8.57.1",
     "eslint-config-next": "14.2.15",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
     "postcss": "^8",
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.8",
     "tailwindcss": "^3.4.13",
-    "typescript": "^5"
+    "typescript": "^5.6.3"
+  },
+  "description": "> 이번 PR에서 작업한 내용을 요약해주세요",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --cache --write .",
+      "eslint --cache . --ext ts,tsx --fix --report-unused-disable-directives --max-warnings 0"
+    ]
   }
 }

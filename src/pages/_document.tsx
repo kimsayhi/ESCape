@@ -1,14 +1,15 @@
-import { Html, Head, Main, NextScript } from "next/document";
+import { Html, Head, Main, NextScript } from 'next/document'
 
 export default function Document() {
   return (
     <Html lang="ko">
       <Head>
+        <script defer src="https://developers.kakao.com/sdk/js/kakao.min.js" />
       </Head>
       <body>
-      <Main/>
-      <NextScript/>
+        <Main />
+        <NextScript />
       </body>
     </Html>
-  );
+  )
 }

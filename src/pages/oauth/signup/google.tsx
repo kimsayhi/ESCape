@@ -1,9 +1,9 @@
-export default function GoogleSignupPage() {
+import SocialSignUpForm from '@/components/auth/NicknamePage'
+
+export default function GoogleSignUp() {
   return (
-    <>
-      <div>
-        구글 간편로그인 페이지
-      </div>
-    </>
-  );
+    <div className="flex justify-center">
+      <SocialSignUpForm />
+    </div>
+  )
 }
