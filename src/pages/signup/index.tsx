@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
-
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { signUp } from '@/libs/axios/auth/auth'

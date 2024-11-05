@@ -28,17 +28,20 @@ export default function BoardDetailPage() {
   const { user } = useAuth()
 
   // 유저 정보를 받아와서 useState 에 저장
+  // 로그인 정보 없이 접속할 경우 로그인 페이지로 리디렉션
   useEffect(() => {
-    if (user) {
+    if (!user) {
+      router.push('/signin')
+    } else {
       setUserId(user.id)
     }
-  }, [user])
+  }, [user, router])
 
   // 상세 페이지를 보기위한 useQuery
   // useRouter 가 클라이언트 사이드에서만 제대로 작동하기 때문에 준비가 완료되었을 때 호출하기 위해 enabled 사용
   const { data: articleDetailData } = useQuery({
-    queryKey: ['articleDetail', id],
-    queryFn: () => getArticleDetail(id),
+    queryKey: ['articleDetail', id, userId],
+    queryFn: () => getArticleDetail(id, String(user?.id)),
     enabled: !!id,
   })
 
@@ -106,13 +109,18 @@ export default function BoardDetailPage() {
     setComment('')
   }
 
+  // Fetch 가 필요한 곳에 내려주기 위한 이벤트 핸들러
+  const handleRefetch = () => {
+    queryClient.invalidateQueries({ queryKey: ['articleDetail', id, userId] })
+  }
+
   // 임시 로딩 & 에러 처리
   if (isLoading) return <BoardStatusScreen>Loading...</BoardStatusScreen>
   if (isError) return <BoardStatusScreen>Error!</BoardStatusScreen>
 
   return (
     <div className="relative mx-4 py-[100px] md:mx-6 xl:mx-auto xl:w-[1200px]">
-      <DetailContentSection data={articleDetailData} userId={userId} />
+      <DetailContentSection data={articleDetailData} userId={userId} reFetch={handleRefetch} />
       <form onSubmit={handleCommentSubmit}>
         <DetailPostCommentSection
           comment={comment}

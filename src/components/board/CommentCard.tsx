@@ -60,7 +60,7 @@ export default function CommentCard({ data, currentPage, dataId, userId }: Detai
           <div className="flex items-center gap-3">
             <Image
               className="h-8 w-8 rounded-full"
-              src={data?.writer.image && data?.writer.image !== 'string' ? data.writer.image : ProfileIcon}
+              src={data?.writer.image && data?.writer.image !== 'null' ? data.writer.image : ProfileIcon}
               alt="작성자 이미지"
               width={32}
               height={32}

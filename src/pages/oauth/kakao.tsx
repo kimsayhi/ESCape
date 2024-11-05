@@ -1,127 +1,74 @@
-/* eslint-disable react/jsx-props-no-spreading */
-
 import { useAuth } from '@/contexts/AuthProvider'
-import Link from 'next/link'
-import Image from 'next/image'
-import CustomButton from '@/components/@shared/ui/CustomButton'
-import { Spinner } from 'flowbite-react'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
-import { useForm, FieldError } from 'react-hook-form'
-import oAuthSignUp from '@/libs/axios/oauth/oAuthSignUp'
-import Logo from '../../../public/images/logo.svg'
-
-interface NicknameForm {
-  nickname: string
-}
-
-interface OAuthSignUpResponse {
-  ok: boolean
-  message?: string
-}
+import { saveTokens } from '@/utils/authTokenStorage'
 
 export default function KakaoSignupPage() {
-  const { oAuthLogin } = useAuth()
-  const provider = 'kakao'
   const router = useRouter()
-  const { code } = router.query
+  const { oAuthLogin, updateMe } = useAuth()
+  const provider = 'kakao'
   const [loading, setLoading] = useState(false)
-
-  const {
-    register,
-    handleSubmit,
-    setError,
-    formState: { errors },
-  } = useForm<NicknameForm>()
+  const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {
-    if (!code || typeof code !== 'string') {
-      router.replace('/error')
-      return
-    }
-    localStorage.setItem('authCode', code)
-    window.close()
-  }, [code, router])
+    const handleOauthCallback = async () => {
+      const { code } = router.query
 
-  const onSubmit = async (data: NicknameForm) => {
-    const token = localStorage.getItem('authCode')
+      // 코드가 존재하지 않으면 에러 페이지로 리다이렉트
+      if (!code) {
+        router.push('/error')
+        return
+      }
 
-    // alert 제거
-    if (!token) {
-      return
-    }
+      if (typeof code === 'string') {
+        try {
+          const signInWithKakao = async (token: string): Promise<void> => {
+            try {
+              const redirectUri = `http://localhost:3000/oauth/${provider}` || ''
+              const postSignInKakaoResponse = await oAuthLogin({ redirectUri, token }, provider)
 
-    const formData = {
-      nickname: data.nickname,
-      redirectUri: `http://localhost:3000/oauth/${provider}`,
-      token,
-    }
-    setLoading(true)
+              const { accessToken, user } = postSignInKakaoResponse
+              const { nickname } = user
 
-    try {
-      const isSignUpSuccess = await oAuthSignUp(formData, provider)
+              saveTokens({ accessToken })
+              updateMe({ nickname })
+              /**
+               * 간편 로그인 api 호출 응답에 신규 사용자 구분이 없기 때문에
+               * 닉네임 길이로 신규 사용자인지 아닌지 분별
+               * 처음 간편 로그인 시 구글에서 주는 닉네임이 10자 이상의 숫자값이기 때문
+               */
 
-      if (typeof isSignUpSuccess === 'boolean') {
-        setError('nickname', {
-          type: 'server',
-          message: '회원가입 실패. 다시 시도해 주세요.',
-        })
-      } else {
-        const { ok, message }: OAuthSignUpResponse = isSignUpSuccess
+              if (user.nickname.length > 10) {
+                router.push({
+                  pathname: '/oauth/signup/google',
+                  query: { token: code, provider },
+                })
+              } else {
+                router.push('/product')
+              }
+            } catch (signInError) {
+              console.error('카카오 간편 로그인 API 호출 에러:', signInError)
+              setErrorMessage('카카오 간편 로그인 중 오류가 발생했습니다.')
+            }
+          }
 
-        if (ok) {
-          await oAuthLogin({ token }, provider)
-          localStorage.removeItem('authCode')
-          router.push('/product')
-        } else {
-          setError('nickname', {
-            type: 'server',
-            message: message || '회원가입 실패. 다시 시도해 주세요.',
-          })
+          await signInWithKakao(code) // Kakao 인가 코드를 가지고 간편 로그인
+        } catch (error) {
+          setErrorMessage('로그인 중 오류 발생')
+          console.error('로그인 처리 중 에러 발생:', error)
+        } finally {
+          setLoading(false)
         }
       }
-    } catch {
-      setError('nickname', {
-        type: 'server',
-        message: '회원가입 중 문제가 발생했습니다. 다시 시도해 주세요.',
-      })
-    } finally {
-      setLoading(false)
     }
-  }
+
+    handleOauthCallback()
+  }, [router, oAuthLogin, updateMe])
 
   return (
-    <div className="mx-auto mt-[200px] max-w-[640px] p-3 text-white">
-      <div className="flex justify-center">
-        <Link href="/" className="inline-block py-10">
-          <Image width={200} src={Logo} alt="로고 이미지" />
-        </Link>
-      </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mb-5">
-          <span className="block pb-1">닉네임</span>
-          <input
-            type="text"
-            className={`w-full rounded-xl border-solid border-brand-black-light bg-brand-black-medium px-6 py-4 text-brand-gray-dark focus:outline-blue-gradation ${
-              errors.nickname ? 'border-red-500' : ''
-            }`}
-            placeholder="닉네임을 입력해주세요"
-            {...register('nickname', {
-              required: '닉네임은 필수 입력입니다.',
-              maxLength: {
-                value: 10,
-                message: '닉네임은 최대 10자까지 가능합니다.',
-              },
-            })}
-          />
-          {errors.nickname && <p className="mt-2 text-sm text-red-500">{(errors.nickname as FieldError).message}</p>}
-        </div>
-        <div className="pt-2">
-          <CustomButton styleType="primary" type="submit" active>
-            {loading ? <Spinner aria-label="로딩 중..." size="md" /> : '가입하기'}
-          </CustomButton>
-        </div>
-      </form>
+    <div>
+      {loading && <div className="text-status-danger mt-10 text-center">카카오 인증 중</div>}
+      {errorMessage && <div className="text-status-danger mt-10 text-center">{errorMessage}</div>}
     </div>
   )
 }

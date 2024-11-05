@@ -1,15 +1,21 @@
 import Axios from 'axios'
 import { BoardData } from '@/dtos/ArticleDto'
 
-const BASE_URL = process.env.NEXT_PUBLIC_BOARD_API_URL
+const BASE_URL = '/api'
 
 interface getArticlesParams {
   selectedOption: string
   searchValue: string
   currentPage: number
+  userId: string | number | undefined
 }
 
-export async function getArticles({ selectedOption, searchValue, currentPage }: getArticlesParams): Promise<BoardData> {
+export async function getArticles({
+  selectedOption,
+  searchValue,
+  currentPage,
+  userId,
+}: getArticlesParams): Promise<BoardData> {
   try {
     let orderBy = ''
     if (selectedOption === '최신순') {
@@ -19,8 +25,8 @@ export async function getArticles({ selectedOption, searchValue, currentPage }: 
     }
 
     const url = searchValue
-      ? `${BASE_URL}/articles?page=${currentPage}&pageSize=4&orderBy=${orderBy}&keyword=${searchValue}`
-      : `${BASE_URL}/articles?page=${currentPage}&pageSize=4&orderBy=${orderBy}`
+      ? `${BASE_URL}/articles/${userId}?page=${currentPage}&pageSize=4&orderBy=${orderBy}&keyword=${searchValue}`
+      : `${BASE_URL}/articles/${userId}?page=${currentPage}&pageSize=4&orderBy=${orderBy}`
 
     const response = await Axios.get(url)
     return response.data as BoardData

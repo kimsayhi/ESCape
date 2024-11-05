@@ -77,7 +77,7 @@ function ToasterProvider({ children }: ToasterProviderProps) {
   return (
     <ToasterContext.Provider value={contextValue}>
       {children}
-      <div className="fixed bottom-5 right-5 z-50 flex flex-col gap-4">
+      <div className="fixed left-1/2 top-5 z-50 flex -translate-x-1/2 transform flex-col gap-4">
         {toasts.map(toast => (
           <ToastComponent
             key={toast.id}

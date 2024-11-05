@@ -1,7 +1,7 @@
 import Axios from 'axios'
 import { ArticleFormData } from '@/dtos/ArticleDto'
 
-const BASE_URL = process.env.NEXT_PUBLIC_BOARD_API_URL
+const BASE_URL = '/api'
 
 export async function patchArticles({ formData, id }: { formData: FormData; id: number | undefined }) {
   const url = `${BASE_URL}/articles/${id}`

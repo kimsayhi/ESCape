@@ -5,7 +5,7 @@ import ProductReviewSection from '@/components/productDetail/review/ProductRevie
 import { useQuery } from '@tanstack/react-query'
 import { fetchProductDetails } from '@/libs/axios/product/productApi'
 import { fetchReviews } from '@/libs/axios/product/reviewApi'
-import { ProductDetailTypes, ProductReviewListTypes } from '@/dtos/ProductDto'
+import { ProductDetailTypes, ProductReviewsResponseTypes } from '@/dtos/ProductDto'
 import { Spinner } from 'flowbite-react'
 import { useState } from 'react'
 
@@ -14,7 +14,7 @@ interface ProductDetailPageProps {
 }
 
 const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ productId }) => {
-  const [sortOption, setSortOption] = useState<string>('recent')
+  const [sortOption, setSortOption] = useState<'recent' | 'ratingDesc' | 'ratingAsc' | 'likeCount'>('recent')
 
   const {
     data: detailData,
@@ -25,20 +25,14 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ productId }) => {
     queryFn: () => fetchProductDetails(productId),
   })
 
-  const {
-    data: reviews = [],
-    isLoading: isReviewsLoading,
-    error: reviewsError,
-    refetch: refetchReviews,
-  } = useQuery<ProductReviewListTypes[]>({
+  const { isLoading: isReviewsLoading, error: reviewsError } = useQuery<ProductReviewsResponseTypes>({
     queryKey: ['reviews', productId, sortOption],
-    queryFn: () => fetchReviews(productId, sortOption),
+    queryFn: () => fetchReviews(productId, { order: sortOption, cursor: 0 }), // 필요한 초기 cursor 값 전달
   })
 
   // 정렬 옵션 변경 함수
-  const handleSortChange = (newSortOption: string) => {
+  const handleSortChange = (newSortOption: 'recent' | 'ratingDesc' | 'ratingAsc' | 'likeCount') => {
     setSortOption(newSortOption)
-    refetchReviews() // 정렬 옵션이 변경되면 리뷰 데이터 리패치
   }
 
   if (isDetailLoading || isReviewsLoading) {
@@ -66,8 +60,6 @@ const ProductDetailPage: React.FC<ProductDetailPageProps> = ({ productId }) => {
       <div>
         <ProductReviewSection
           productId={productId}
-          reviews={reviews}
-          refetchReviews={refetchReviews}
           sortOption={sortOption} // 현재 정렬 옵션을 전달
           onSortChange={handleSortChange} // 정렬 변경 함수 전달
         />

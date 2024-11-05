@@ -1,7 +1,7 @@
 import Axios from 'axios'
 import { CommentFormData } from '@/dtos/ArticleDto'
 
-const BASE_URL = process.env.NEXT_PUBLIC_BOARD_API_URL
+const BASE_URL = '/api'
 
 interface postCommentsProps {
   id: string | string[] | undefined

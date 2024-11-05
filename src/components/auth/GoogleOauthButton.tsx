@@ -1,9 +1,9 @@
-import { useAuth } from '@/contexts/AuthProvider'
+import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useState, useEffect, useCallback } from 'react'
+import { useAuth } from '@/contexts/AuthProvider'
 import { useToaster } from '@/contexts/ToasterProvider'
-import GoogleIcon from '../../../public/icons/icon_google.svg'
+import GoogleIcon from '@icons/icon_google.svg'
 
 const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ''
 const GOOGLE_CLIENT_SECRET = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET || ''
@@ -54,7 +54,6 @@ export default function GoogleOauthButton() {
       }
     }, 1000)
   }
-
   const fetchTokens = useCallback(
     async (authCode: string) => {
       const data = {
@@ -80,7 +79,7 @@ export default function GoogleOauthButton() {
         try {
           const isSignInSuccess = await oAuthLogin({ redirectUri: REDIRECT_URI, token: tokenData.id_token }, 'google')
           if (isSignInSuccess?.accessToken) {
-            toaster('success', '로그인이 성공하였습니다.')
+            toaster('success', '로그인에 성공하였습니다.')
             localStorage.removeItem('authCode')
             router.push('/')
           } else {
@@ -88,7 +87,7 @@ export default function GoogleOauthButton() {
           }
         } catch (error) {
           console.error('로그인 실패:', error)
-          toaster('fail', '로그인에 실패했습니다. 다시 시도해 주세요.')
+          toaster('fail', '로그인에 실패하였습니다. 다시 시도해 주세요.')
           router.push('/oauth/google')
         }
       } else {

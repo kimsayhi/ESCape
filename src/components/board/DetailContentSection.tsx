@@ -8,13 +8,18 @@ import timeAgo from '@/utils/timeAgo'
 import BoardPatchModal from '@/components/board/BoardPatchModal'
 import BoardDeleteModal from '@/components/board/BoardDeleteModal'
 import { useState } from 'react'
+import { postLike } from '@/libs/axios/board/postLike'
+import { deleteLike } from '@/libs/axios/board/deleteLike'
+import LikeIcon from '@icons/like_icon.svg'
+import UnLikeIcon from '@icons/unlike_icon.svg'
 
 export interface DetailContentProps {
   data?: ArticleDetail
   userId: string | number | undefined
+  reFetch: () => void
 }
 
-export default function DetailContentSection({ data, userId }: DetailContentProps) {
+export default function DetailContentSection({ data, userId, reFetch }: DetailContentProps) {
   const [isPatchOpen, setIsPatchOpen] = useState(false)
   const [isDeleteOpen, setIsDeleteOpen] = useState(false)
   const togglePatchModal = () => setIsPatchOpen(prevState => !prevState)
@@ -30,27 +35,54 @@ export default function DetailContentSection({ data, userId }: DetailContentProp
     setIsDeleteOpen(!isDeleteOpen)
   }
 
+  // 게시글에 좋아요를 하기 위한 이벤트 핸들러
+  const handleLikeToggle = async () => {
+    try {
+      if (!data?.isLiked) {
+        await postLike({ id: String(data?.id), userId })
+      } else {
+        await deleteLike({ id: String(data.id), userId })
+      }
+    } catch (error) {
+      console.error('찜하기 처리 중 오류가 발생했습니다.', error)
+    } finally {
+      reFetch()
+    }
+  }
+
   return (
     <>
       <div className="flex items-center justify-between border-b-[1px] border-solid border-brand-black-light pb-6">
         <h1 className="break-words text-[18px] font-medium leading-[21px] text-brand-white">
           {data?.title ? data.title : '제목이 들어가는 영역입니다.'}
         </h1>
-        <Dropdown
-          width="w-[120px]"
-          buttonChildren={
-            <div className={`${userId === data?.writer.id ? '' : 'hidden'} ml-4 h-6 w-6`}>
-              <Image src={KebabIcon} alt="수정 & 삭제하기" width={24} height={24} />
-            </div>
-          }
-        >
-          <button type="button" onClick={handlePatchModal}>
-            수정하기
-          </button>
-          <button type="button" onClick={handleDeleteModal}>
-            삭제하기
-          </button>
-        </Dropdown>
+        {userId === data?.writer.id ? (
+          <Dropdown
+            width="w-[120px]"
+            buttonChildren={
+              <div className="ml-4 h-6 w-6">
+                <Image src={KebabIcon} alt="수정 & 삭제하기" width={24} height={24} />
+              </div>
+            }
+          >
+            <button type="button" onClick={handlePatchModal}>
+              수정하기
+            </button>
+            <button type="button" onClick={handleDeleteModal}>
+              삭제하기
+            </button>
+          </Dropdown>
+        ) : (
+          <div>
+            <button className="flex h-6 w-6 items-center justify-center" type="button" onClick={handleLikeToggle}>
+              {data?.isLiked ? (
+                <Image src={LikeIcon} alt="좋아요" width={24} height={24} />
+              ) : (
+                <Image src={UnLikeIcon} alt="안 좋아요" width={24} height={24} />
+              )}
+            </button>
+          </div>
+        )}
       </div>
       <div className="flex items-center justify-between pt-6">
         <div className="flex">

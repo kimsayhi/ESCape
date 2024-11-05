@@ -59,6 +59,7 @@ export default function HeaderSidebar({ handleSidebar, isOpen }: HeaderSidebarPr
                 icon={RxDotFilled}
                 onClick={() => {
                   handleQueryReset()
+                  handleSidebar()
                 }}
               >
                 인기 테마
@@ -85,6 +86,10 @@ export default function HeaderSidebar({ handleSidebar, isOpen }: HeaderSidebarPr
               </Sidebar.Item>
 
               {user ? (
+                <Sidebar.Item href="/mypage" icon={FaRegCircleUser}>
+                  내 프로필
+                </Sidebar.Item>
+              ) : (
                 <>
                   <Sidebar.Item href="/signin" icon={HiLogin}>
                     로그인
@@ -93,10 +98,6 @@ export default function HeaderSidebar({ handleSidebar, isOpen }: HeaderSidebarPr
                     회원가입
                   </Sidebar.Item>
                 </>
-              ) : (
-                <Sidebar.Item href="/mypage" icon={FaRegCircleUser}>
-                  내 프로필
-                </Sidebar.Item>
               )}
             </Sidebar.ItemGroup>
           </Sidebar.Items>

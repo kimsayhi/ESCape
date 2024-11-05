@@ -1,9 +1,9 @@
-import { useEffect } from 'react'
 import useProducts from '@/hooks/useProducts'
 import useInfiniteProducts from '@/hooks/useInfiniteProduct'
 import useInfiniteScroll from '@/hooks/useInfiniteScroll'
 import useRouteHandler from '@/hooks/useRouteHandler'
 import { CATEGORY_DATA } from '@/libs/constants/category'
+import { match } from 'ts-pattern'
 import ProductList from './ProductList'
 import CustomDropDown from '../@shared/ui/CustomDropDown'
 
@@ -44,47 +44,34 @@ export default function ProductMain() {
     hasMore: !!productData?.pageParams,
   })
 
-  useEffect(() => {}, [keyword, order, category])
   const nowCategory = CATEGORY_DATA.find(item => item.id === Number(category))
   const hotProducts = reviewCountData?.list.slice(0, 6) || null
   const ratingProducts = ratingData?.list.slice(0, 6) || null
   const allProducts = productData?.pages.flatMap(page => page.list)
+
+  const renderProductListContent = () =>
+    match({ keyword: !!keyword, category: !!category })
+      .with({ keyword: false, category: true }, () => <div>{`'${nowCategory?.name}'의 모든 테마`}</div>)
+      .with({ keyword: true, category: false }, () => <div>{`'${keyword}'에 대한 검색 결과`}</div>)
+      .with({ keyword: true, category: true }, () => (
+        <div>{`'${nowCategory?.name}'의 '${keyword}'에 대한 검색 결과`}</div>
+      ))
+      .otherwise(() => null)
+
+  const renderedContent = renderProductListContent()
   return (
     <div className="xl:h-100vh-xl scroll-hidden flex w-full max-w-[940px] flex-col gap-[60px] xl:min-w-[940px] xl:gap-[80px] xl:pt-[60px]">
-      {category && !keyword && (
+      {renderedContent ? (
         <>
           <ProductList productList={allProducts}>
             <div className="flex justify-between">
-              <div>{`'${nowCategory?.name}'의 모든 테마`}</div>
+              {renderedContent}
               <CustomDropDown dropDownValues={DROPDOWN_VALUE} onClick={handleOrder} />
             </div>
           </ProductList>
           <div ref={targetRef} className="mb-4" />
         </>
-      )}
-      {keyword && !category && (
-        <>
-          <ProductList productList={allProducts}>
-            <div className="flex justify-between">
-              <div>{`'${keyword}'에 대한 검색 결과`}</div>
-              <CustomDropDown dropDownValues={DROPDOWN_VALUE} onClick={handleOrder} />
-            </div>
-          </ProductList>
-          <div ref={targetRef} className="mb-4" />
-        </>
-      )}
-      {keyword && category && (
-        <>
-          <ProductList productList={allProducts}>
-            <div className="flex justify-between">
-              <div>{`'${nowCategory?.name}'의 '{keyword}'에 대한 검색 결과`}</div>
-              <CustomDropDown dropDownValues={DROPDOWN_VALUE} onClick={handleOrder} />
-            </div>
-          </ProductList>
-          <div ref={targetRef} className="mb-4" />
-        </>
-      )}
-      {!category && !keyword && (
+      ) : (
         <>
           <ProductList productList={hotProducts}>
             <div>

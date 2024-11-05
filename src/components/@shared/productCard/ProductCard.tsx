@@ -35,7 +35,7 @@ export default function ProductCard({ data, productId }: ProductCardProps) {
   ]
 
   return (
-    <Link href={`product/${productId}`} className="h-full w-full">
+    <Link href={`/product/${productId}`} className="h-full w-full">
       <div className="flex h-full w-full flex-col items-start justify-start gap-[10px] rounded-lg border border-unactive bg-[#252530] p-[10px] md:p-[20px] xl:max-w-[300px]">
         <Image className="m-auto" src={image} alt={`${name} 이미지`} width={140} height={98} />
         <div className="flex flex-col items-start justify-start gap-[5px]">

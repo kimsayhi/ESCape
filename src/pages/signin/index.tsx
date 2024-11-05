@@ -1,13 +1,10 @@
-/* eslint-disable react/jsx-props-no-spreading */
-
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useAuth } from '@/contexts/AuthProvider'
 import Link from 'next/link'
 import Image from 'next/image'
-
 import GoogleOauthButton from '@/components/auth/GoogleOauthButton'
-import KakoOauthButton from '@/components/auth/KakoOauthButton'
+import KakaoOauthButton from '@/components/auth/KakaoOauthButton'
 import CustomButton from '@/components/@shared/ui/CustomButton'
 import { Spinner } from 'flowbite-react'
 import { useForm, SubmitHandler } from 'react-hook-form'
@@ -42,15 +39,11 @@ export default function SignInPage() {
     setLoading(true)
     try {
       const response = await login(data)
-      if (typeof response === 'boolean') {
-        setLoginErrorMessage('로그인 실패. 다시 시도해 주세요.')
+      if (!response) {
+        const message = '이메일 혹은 비밀번호를 확인해주세요.'
+        setLoginErrorMessage(message)
       } else {
-        const { success, message } = response
-        if (!success) {
-          setLoginErrorMessage(message)
-        } else {
-          router.push('/product')
-        }
+        router.push('/product')
       }
     } catch {
       setLoginErrorMessage('로그인 중 오류가 발생했습니다. 다시 시도해 주세요.')
@@ -60,7 +53,7 @@ export default function SignInPage() {
   }
 
   return (
-    <div className="mx-auto mt-[200px] max-w-[640px] p-3 text-white">
+    <div className="mx-auto mt-20 max-w-md p-3 text-white">
       <div className="flex justify-center">
         <Link href="/" className="inline-block py-10">
           <Image width={200} src={Logo} alt="로고 이미지" />
@@ -71,7 +64,7 @@ export default function SignInPage() {
           <span className="block pb-1">이메일</span>
           <input
             type="text"
-            className={`w-full rounded-xl border-solid border-brand-black-light bg-brand-black-medium px-6 py-4 text-brand-gray-dark focus:outline-blue-gradation ${
+            className={`w-full rounded-xl border-2 border-solid border-brand-black-light bg-brand-black-medium px-6 py-4 text-brand-gray-dark focus:outline-blue-gradation ${
               errors.email || loginErrorMessage ? 'border-red-500' : ''
             }`}
             placeholder="이메일을 입력해주세요"
@@ -91,7 +84,7 @@ export default function SignInPage() {
           <div className="relative">
             <input
               type={showPassword ? 'text' : 'password'}
-              className={`w-full rounded-xl border-solid border-brand-black-light bg-brand-black-medium px-6 py-4 text-brand-gray-dark focus:outline-blue-gradation ${
+              className={`w-full rounded-xl border-2 border-solid border-brand-black-light bg-brand-black-medium px-6 py-4 text-brand-gray-dark focus:outline-blue-gradation ${
                 errors.password || loginErrorMessage ? 'border-red-500' : ''
               }`}
               placeholder="비밀번호를 입력해주세요"
@@ -131,7 +124,7 @@ export default function SignInPage() {
         <p className="my-3 text-brand-gray-dark">SNS로 바로 시작하기</p>
         <div className="flex justify-center gap-4">
           <GoogleOauthButton />
-          <KakoOauthButton />
+          <KakaoOauthButton />
         </div>
       </div>
     </div>

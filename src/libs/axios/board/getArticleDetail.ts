@@ -1,11 +1,11 @@
 import Axios from 'axios'
 import { ArticleDetail } from '@/dtos/ArticleDto'
 
-const BASE_URL = process.env.NEXT_PUBLIC_BOARD_API_URL
+const BASE_URL = '/api'
 
-export async function getArticleDetail(id: string | string[] | undefined): Promise<ArticleDetail> {
+export async function getArticleDetail(id: string | string[] | undefined, userId: string): Promise<ArticleDetail> {
   try {
-    const url = `${BASE_URL}/articles/${id}`
+    const url = `${BASE_URL}/articles/${id}/${userId}`
 
     const response = await Axios.get(url)
     return response.data as ArticleDetail

@@ -2,20 +2,39 @@ import SearchSection from '@/components/board/SearchSection'
 import BestBoardSection from '@/components/board/BestBoardSection'
 import BoardSection from '@/components/board/BoardSection'
 import AddBoardButton from '@/components/board/AddBoardButton'
-import { keepPreviousData, useInfiniteQuery, useQuery } from '@tanstack/react-query'
+import { keepPreviousData, useInfiniteQuery, useQuery, useQueryClient } from '@tanstack/react-query'
 import { getArticles } from '@/libs/axios/board/getArticles'
 import { getArticlesByLike } from '@/libs/axios/board/getArticlesByLike'
 import React, { useEffect, useState } from 'react'
 import BoardStatusScreen from '@/components/board/BoardStatusScreen'
 import PaginationSection from '@/components/board/PaginationSection'
 import { useAuth } from '@/contexts/AuthProvider'
+import { useRouter } from 'next/router'
+import { postUsers } from '@/libs/axios/board/postUsers'
 
 export default function BoardsPage() {
   const [selectedOption, setSelectedOption] = useState('최신순')
   const [searchValue, setSearchValue] = useState('')
   const [pageLimit, setPageLimit] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
+  const router = useRouter()
   const { user } = useAuth()
+  const queryClient = useQueryClient()
+
+  // 유저 정보 없이 접근할 경우 로그인으로 리디렉션 하는 useEffect
+  // boardPage 에 접속시, user 정보를 한 번더 최신화
+  useEffect(() => {
+    if (!user) {
+      router.push('/signin')
+    } else {
+      postUsers({
+        id: Number(user.id),
+        description: user.description,
+        image: String(user.image),
+        nickname: user.nickname,
+      })
+    }
+  }, [user, router])
 
   // 받아온 검색 내용을 반영하기 위한 이벤트 핸들러
   const handleSearchChange = (value: string) => {
@@ -50,9 +69,9 @@ export default function BoardsPage() {
     hasNextPage,
     isFetchingNextPage,
   } = useInfiniteQuery({
-    queryKey: ['likes', pageLimit],
-    queryFn: ({ pageParam }) => getArticlesByLike(pageParam, pageLimit),
-    enabled: !!pageLimit,
+    queryKey: ['likes', pageLimit, user?.id],
+    queryFn: ({ pageParam }) => getArticlesByLike(pageParam, pageLimit, String(user?.id)),
+    enabled: !!pageLimit && !!user?.id,
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
       const { totalCount } = lastPage
@@ -76,8 +95,8 @@ export default function BoardsPage() {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ['articles', selectedOption, searchValue, currentPage],
-    queryFn: () => getArticles({ selectedOption, searchValue, currentPage }),
+    queryKey: ['articles', selectedOption, searchValue, currentPage, user?.id],
+    queryFn: () => getArticles({ selectedOption, searchValue, currentPage, userId: user?.id }),
     placeholderData: keepPreviousData,
   })
 
@@ -93,6 +112,11 @@ export default function BoardsPage() {
   // 받아온 likeArticlesData 의 pages 가 이중 배열일 수 있기 때문에, 1차원 배열로 변경
   const likesList = likeArticlesData?.pages?.flatMap(page => page.articleList)
 
+  // Fetch 가 필요한 곳에 내려주기 위한 이벤트 핸들러
+  const handleRefetch = () => {
+    queryClient.invalidateQueries({ queryKey: ['articles', selectedOption, searchValue, currentPage, user?.id] })
+  }
+
   return (
     <div className="relative mx-4 py-[100px] md:mx-6 xl:mx-auto xl:w-[1200px]">
       <SearchSection onSearchChange={handleSearchChange} />
@@ -104,6 +128,7 @@ export default function BoardsPage() {
         selectedOption={selectedOption}
         setSelectedOption={setSelectedOption}
         userId={Number(user?.id)}
+        reFetch={handleRefetch}
       />
       <PaginationSection
         totalPageCount={articlesData?.totalCount}

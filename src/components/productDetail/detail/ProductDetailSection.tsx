@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-alert
 import { useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
 import Image from 'next/image'
@@ -23,6 +22,14 @@ const ProductDetailSection: React.FC<{ productId: number; detailData: ProductDet
 
   const parsedDescription = detailData?.description as DescriptionTypes
 
+  const features = [
+    { label: '지역', value: parsedDescription.loc },
+    { label: '시간', value: `${parsedDescription.time} min` },
+    { label: '난이도', value: parsedDescription.lev, isStarRating: true },
+    { label: '공포도', value: parsedDescription.hor, isStarRating: true },
+    { label: '활동성', value: parsedDescription.act, isStarRating: true },
+  ]
+
   const handleShareClick = () => {
     const shareUrl = window.location.href
     navigator.clipboard.writeText(shareUrl)
@@ -40,11 +47,7 @@ const ProductDetailSection: React.FC<{ productId: number; detailData: ProductDet
 
   const handleReservationClick = () => {
     if (parsedDescription?.url) {
-      // eslint-disable-next-line no-alert
-      const confirmed = window.confirm('예약 페이지로 이동하시겠습니까?')
-      if (confirmed) {
-        window.location.href = parsedDescription.url
-      }
+      window.location.href = parsedDescription.url
     } else {
       toaster('fail', '예약 URL을 찾을 수 없습니다.')
     }
@@ -96,11 +99,14 @@ const ProductDetailSection: React.FC<{ productId: number; detailData: ProductDet
         </div>
 
         <div className="mb-4 flex flex-wrap gap-2">
-          <FeatureTag label="지역" value={parsedDescription.loc} />
-          <FeatureTag label="난이도" value={parsedDescription.lev} isStarRating />
-          <FeatureTag label="시간" value={`${parsedDescription.time} min`} />
-          <FeatureTag label="공포도" value={parsedDescription.hor} isStarRating />
-          <FeatureTag label="활동성" value={parsedDescription.act} isStarRating />
+          {features.map(feature => (
+            <FeatureTag
+              key={feature.label}
+              label={feature.label}
+              value={feature.value}
+              isStarRating={feature.isStarRating}
+            />
+          ))}
         </div>
 
         <div className="flex space-x-4">

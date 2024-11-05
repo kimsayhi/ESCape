@@ -6,6 +6,7 @@ import DefaultImage from '@images/default-image.png'
 import { IoMdCloseCircle } from 'react-icons/io'
 import { CreateReviewRequestBody, UpdateReviewRequestBody, ReviewImage } from '@/dtos/ReviewDto'
 import { useToaster } from '@/contexts/ToasterProvider'
+import { useQueryClient } from '@tanstack/react-query'
 
 interface ReviewModalProps {
   isOpen: boolean
@@ -38,6 +39,7 @@ const ReviewModal: React.FC<ReviewModalProps> = ({
   )
   const [loading, setLoading] = useState<boolean>(false)
   const toaster = useToaster()
+  const queryClient = useQueryClient() // queryClient 추가
 
   useEffect(() => {
     if (isOpen && isEdit) {
@@ -47,6 +49,18 @@ const ReviewModal: React.FC<ReviewModalProps> = ({
       setExistingImages(initialReviewData.images.filter(image => image.id))
     }
   }, [isOpen, isEdit, initialReviewData])
+
+  const validateForm = () => {
+    if (rating === 0) {
+      toaster('warn', '별점을 선택해 주세요.')
+      return false
+    }
+    if (reviewText.trim() === '') {
+      toaster('warn', '리뷰 내용을 입력해 주세요.')
+      return false
+    }
+    return true
+  }
 
   const handleRatingClick = (value: number) => setRating(value)
 
@@ -73,7 +87,6 @@ const ReviewModal: React.FC<ReviewModalProps> = ({
 
   const handleImageRemove = (identifier: number | string | undefined) => {
     if (identifier !== undefined) {
-      // undefined가 아닌 경우에만 동작
       if (typeof identifier === 'number') {
         setExistingImages(existingImages.filter(image => image.id !== identifier))
       } else {
@@ -85,15 +98,8 @@ const ReviewModal: React.FC<ReviewModalProps> = ({
   }
 
   const handleSubmit = async () => {
-    if (rating === 0) {
-      toaster('warn', '별점을 선택해 주세요.')
-      return
-    }
-
-    if (reviewText.trim() === '') {
-      toaster('warn', '리뷰 내용을 입력해 주세요.')
-      return
-    }
+    // 유효성 검사를 먼저 실행
+    if (!validateForm()) return
 
     setLoading(true)
     try {
@@ -101,8 +107,6 @@ const ReviewModal: React.FC<ReviewModalProps> = ({
         ...existingImages.map(image => ({ id: image.id })),
         ...uploadedImageUrls.map(url => ({ source: url })),
       ]
-
-      console.log('이미지 payload:', imagePayload)
 
       if (isEdit && initialReviewData.reviewId) {
         const payload: UpdateReviewRequestBody = {
@@ -126,6 +130,10 @@ const ReviewModal: React.FC<ReviewModalProps> = ({
         await createReview(payload)
         toaster('success', '리뷰가 성공적으로 등록되었습니다.')
       }
+
+      // 리뷰 생성 및 수정 시 데이터 새로고침
+      queryClient.invalidateQueries({ queryKey: ['productDetail', productId] })
+      queryClient.invalidateQueries({ queryKey: ['productStatistics', productId] }) // statsic refetch
 
       onClose()
     } catch (error) {

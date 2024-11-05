@@ -1,14 +1,28 @@
-import { ProductReviewListTypes } from '@/dtos/ProductDto'
+import { ProductReviewsResponseTypes } from '@/dtos/ProductDto'
 import { CreateReviewRequestBody, UpdateReviewRequestBody } from '@/dtos/ReviewDto'
 import axiosInstance from '../axiosInstance'
 
-export const fetchReviews = async (productId: number, sortOption: string): Promise<ProductReviewListTypes[]> => {
-  const response = await axiosInstance.get(`/products/${productId}/reviews`, {
-    params: {
-      order: sortOption,
-    },
-  })
-  return response.data.list
+export interface ReviewsQueryParams {
+  order?: 'recent' | 'ratingDesc' | 'ratingAsc' | 'likeCount' | null
+  cursor?: number | null
+}
+
+export const fetchReviews = async (
+  productId: number,
+  { order, cursor }: ReviewsQueryParams,
+): Promise<ProductReviewsResponseTypes> => {
+  try {
+    const response = await axiosInstance.get(`/products/${productId}/reviews`, {
+      params: {
+        order,
+        cursor, // 서버에 'cursor' 값으로 전달
+      },
+    })
+    return response.data
+  } catch (err) {
+    console.log('Error fetching reviews:', err)
+    return { nextCursor: 0, list: [] } as ProductReviewsResponseTypes
+  }
 }
 
 export const createReview = async (reviewData: CreateReviewRequestBody) => {

@@ -20,6 +20,7 @@ export default function CommentDeleteModal({ id, isOpen, onClick, currentPage, d
     onSuccess: async () => {
       try {
         await queryClient.invalidateQueries({ queryKey: ['articleDetailComments', dataId, currentPage] })
+        await queryClient.invalidateQueries({ queryKey: ['articleDetail', dataId] })
       } catch (e) {
         console.error(e)
       }

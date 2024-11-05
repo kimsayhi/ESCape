@@ -21,7 +21,7 @@ export default function BoardPatchModal({ id, isOpen, onClick, value }: BoardPat
   // useState 의 기본값으로 담아야하기 때문에 useState 보다 상단에 위치
   const { data: articleDetailData } = useQuery({
     queryKey: ['articleDetail', String(id)],
-    queryFn: () => getArticleDetail(String(id)),
+    queryFn: () => getArticleDetail(String(id), String(user?.id)),
     enabled: !!id,
   })
 

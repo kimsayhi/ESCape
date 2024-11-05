@@ -82,5 +82,5 @@ export interface ProductReviewListTypes {
 
 export interface ProductReviewsResponseTypes {
   nextCursor: number
-  list: []
+  list: ProductReviewListTypes[]
 }

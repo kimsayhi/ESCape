@@ -1,3 +1,9 @@
-export default function KakaoSignupPage() {
-  return <div>카카오 간편로그인 페이지</div>
+import SocialSignUpForm from '@/components/auth/NicknamePage'
+
+export default function KakaoSignUp() {
+  return (
+    <div className="flex justify-center">
+      <SocialSignUpForm />
+    </div>
+  )
 }

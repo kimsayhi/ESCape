@@ -7,10 +7,13 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(config => {
   const modifiedConfig = { ...config }
-  const accessToken = localStorage.getItem('accessToken')
-  if (accessToken) {
-    modifiedConfig.headers.Authorization = `Bearer ${accessToken}`
-    console.log('Authorization header:', modifiedConfig.headers.Authorization) // 토큰 확인
+
+  // SSR 사용을 위해 window가 undefined가 아닐때만 실행
+  if (typeof window !== 'undefined') {
+    const accessToken = localStorage.getItem('accessToken')
+    if (accessToken) {
+      modifiedConfig.headers.Authorization = `Bearer ${accessToken}`
+    }
   }
   return modifiedConfig
 })

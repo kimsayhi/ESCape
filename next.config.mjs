@@ -30,6 +30,14 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'http://rave-dev.ddns.net:8080/:path*',
+      },
+    ]
+  },
 }
 
 export default nextConfig

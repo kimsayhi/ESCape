@@ -2,19 +2,19 @@ import React from 'react'
 import { Dropdown } from 'flowbite-react'
 
 interface SortDropdownProps {
-  order: (sortOption: string) => void
-  currentSortOption: string
+  order: (sortOption: 'recent' | 'ratingDesc' | 'ratingAsc' | 'likeCount') => void
+  currentSortOption: 'recent' | 'ratingDesc' | 'ratingAsc' | 'likeCount'
 }
 
 const SortDropdown: React.FC<SortDropdownProps> = ({ order, currentSortOption }) => {
-  const sortOptionLabels: { [key: string]: string } = {
+  const sortOptionLabels: { [key in SortDropdownProps['currentSortOption']]: string } = {
     recent: '최신순',
     ratingDesc: '별점 높은순',
     ratingAsc: '별점 낮은순',
     likeCount: '좋아요순',
   }
 
-  const handleSortChange = (sortOption: string) => {
+  const handleSortChange = (sortOption: 'recent' | 'ratingDesc' | 'ratingAsc' | 'likeCount') => {
     order(sortOption)
   }
 

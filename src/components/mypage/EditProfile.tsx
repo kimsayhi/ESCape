@@ -3,10 +3,25 @@ import Image from 'next/image'
 import imageIcon from '@icons/image_icon.svg'
 import deleteIcon from '@icons/close_icon.svg'
 import { Spinner } from 'flowbite-react'
+import useEditProfile from '@/hooks/user/useHandleEditProfile'
 import CustomButton from '../@shared/ui/CustomButton'
 
 const INPUT_MAX_LENGTH = 10
 const TEXTAREA_MAX_LENGTH = 300
+
+const NICKNAME_CHECK = [
+  {
+    errorId: 0,
+    message: '닉네임은 필수 입력입니다.',
+  },
+  {
+    errorId: 1,
+    message: '닉네임은 최대 10자까지 가능합니다.',
+  },
+]
+
+const inputClassNames =
+  'w-full rounded-lg border border-brand-gray-dark bg-[#252530] p-5 placeholder:text-sm placeholder:font-normal placeholder:text-brand-gray-dark md:py-[23px]'
 
 type ProfileContentsTypes = {
   image: string | File | null
@@ -20,69 +35,32 @@ interface EditProfileProps extends ProfileContentsTypes {
 }
 
 export default function EditProfile({ image, nickname, description, onEdit, isPending }: EditProfileProps) {
-  const [formValues, setFormValues] = useState({
-    image,
-    nickname,
-    description,
-  })
-  const [previewImage, setPreviewImage] = useState<string | File | null>(image ?? null)
-  const [inputCount, setInputCount] = useState<number>(description.length)
+  const {
+    formValues,
+    previewImage,
+    textareaCount,
+    handleFileInputChange,
+    handleFileInputDelete,
+    handleInputChange,
+    handleTextAreaChange,
+  } = useEditProfile({ image, nickname, description, TEXTAREA_MAX_LENGTH })
 
+  const [isNicknameValid, setIsNicknameValid] = useState<number | null>(null)
   const isFormComplete = useMemo(() => {
     const { image, nickname } = formValues
-    const isAllInputFilled = nickname !== '' && image !== null
-    return isAllInputFilled
+
+    if (nickname.length < 1) {
+      setIsNicknameValid(NICKNAME_CHECK[0].errorId)
+      return false
+    }
+    if (nickname.length > INPUT_MAX_LENGTH) {
+      setIsNicknameValid(NICKNAME_CHECK[1].errorId)
+      return false
+    }
+    setIsNicknameValid(null)
+
+    return nickname !== '' && image !== null
   }, [formValues])
-
-  /** @todo 파일 이름 한글인지 체크 */
-  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!e.target.files) return
-
-    const selectedImageFile = e.target.files[0]
-
-    if (previewImage && typeof previewImage === 'string') {
-      URL.revokeObjectURL(previewImage)
-    }
-
-    const nextImage = URL.createObjectURL(selectedImageFile)
-    setPreviewImage(nextImage)
-    setFormValues(prevValues => ({
-      ...prevValues,
-      image: selectedImageFile,
-    }))
-  }
-
-  const handleFileInputDelete = () => {
-    if (previewImage && typeof previewImage === 'string') {
-      URL.revokeObjectURL(previewImage)
-    }
-
-    setFormValues(prevValues => ({
-      ...prevValues,
-      image: null,
-    }))
-    setPreviewImage(null)
-  }
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value.slice(0, INPUT_MAX_LENGTH)
-    setFormValues(prevValues => ({
-      ...prevValues,
-      [e.target.name]: inputValue,
-    }))
-  }
-
-  const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const textareaValue = e.target.value.slice(0, TEXTAREA_MAX_LENGTH)
-    setInputCount(textareaValue.length)
-    setFormValues(prevValues => ({
-      ...prevValues,
-      [e.target.name]: textareaValue,
-    }))
-  }
-
-  const inputClassNames =
-    'w-full rounded-lg border border-brand-gray-dark bg-[#252530] p-5 placeholder:text-sm placeholder:font-normal placeholder:text-brand-gray-dark md:py-[23px]'
 
   return (
     <div className="flex w-full flex-col content-start items-stretch gap-5 md:gap-10">
@@ -121,16 +99,20 @@ export default function EditProfile({ image, nickname, description, onEdit, isPe
           )}
         </div>
 
-        <input
-          className={inputClassNames}
-          value={formValues.nickname}
-          id="nickname"
-          name="nickname"
-          type="text"
-          placeholder="닉네임을 입력해주세요"
-          maxLength={INPUT_MAX_LENGTH}
-          onChange={handleInputChange}
-        />
+        <div className="relative w-full">
+          <input
+            className={`${inputClassNames} ${isNicknameValid !== null ? 'border-solid border-brand-red' : ''}`}
+            value={formValues.nickname}
+            id="nickname"
+            name="nickname"
+            type="text"
+            placeholder="닉네임을 입력해주세요"
+            onChange={handleInputChange}
+          />
+          {isNicknameValid !== null && (
+            <p className="mt-2 text-sm text-brand-red">{NICKNAME_CHECK[isNicknameValid].message}</p>
+          )}
+        </div>
 
         <div className="relative w-full">
           <textarea
@@ -143,7 +125,7 @@ export default function EditProfile({ image, nickname, description, onEdit, isPe
             onChange={handleTextAreaChange}
           />
           <p className="absolute bottom-5 right-5 text-right text-sm font-normal text-brand-gray-dark">
-            <span>{inputCount}</span>/{TEXTAREA_MAX_LENGTH}
+            <span>{textareaCount}</span>/{TEXTAREA_MAX_LENGTH}
           </p>
         </div>
       </section>

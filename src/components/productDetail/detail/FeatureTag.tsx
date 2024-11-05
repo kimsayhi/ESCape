@@ -8,7 +8,7 @@ interface FeatureTagProps {
 
 const FeatureTag: React.FC<FeatureTagProps> = ({ label, value, isStarRating = false }) => {
   return (
-    <div className="flex items-center space-x-1.5">
+    <div className="flex items-center space-x-1.5 text-sm">
       <div className="rounded-full bg-blue-900 px-3 py-1 text-white">
         <span>{label}</span>
       </div>

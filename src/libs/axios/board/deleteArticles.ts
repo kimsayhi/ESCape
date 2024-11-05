@@ -1,6 +1,6 @@
 import Axios from 'axios'
 
-const BASE_URL = process.env.NEXT_PUBLIC_BOARD_API_URL
+const BASE_URL = '/api'
 
 export async function deleteArticles(id: number | undefined) {
   try {

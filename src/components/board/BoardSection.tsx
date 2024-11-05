@@ -10,9 +10,10 @@ interface BoardSectionProps {
   selectedOption: string
   setSelectedOption: (option: string) => void
   userId: number
+  reFetch: () => void
 }
 
-export default function BoardSection({ data, selectedOption, setSelectedOption, userId }: BoardSectionProps) {
+export default function BoardSection({ data, selectedOption, setSelectedOption, userId, reFetch }: BoardSectionProps) {
   const [localSelectedOption, setLocalSelectedOptions] = useState(selectedOption)
 
   // 드롭다운의 최신순, 인기순을 눌렀을 때 실제로 보이는 값을 수정하기 위한 이벤트 핸들러
@@ -44,7 +45,7 @@ export default function BoardSection({ data, selectedOption, setSelectedOption, 
       </div>
       <div className="relative grid grid-cols-1 gap-4 py-9 xl:grid-cols-2">
         {data && data.length > 0 ? (
-          data?.map(data => <BoardCard key={data.id} article={data} userId={userId} />)
+          data?.map(data => <BoardCard key={data.id} article={data} userId={userId} reFetch={reFetch} />)
         ) : (
           // 임시 예외 처리
           <div className="text-brand-white">내용이 없습니다.</div>
