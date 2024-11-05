@@ -24,7 +24,7 @@ export default function NicknamePage() {
   const handleNicknameSubmit: SubmitHandler<NicknameFormInputs> = async data => {
     const formData = {
       nickname: data.nickname,
-      redirectUri: `http://localhost:3000/oauth/${provider}`, // 리다이렉트 URI
+      redirectUri: `${process.env.NEXT_PUBLIC_REDIRECT_URI}${provider}`, // 리다이렉트 URI
       token: token as string,
     }
 

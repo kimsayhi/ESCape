@@ -7,7 +7,7 @@ import GoogleIcon from '@icons/icon_google.svg'
 
 const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || ''
 const GOOGLE_CLIENT_SECRET = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET || ''
-const REDIRECT_URI = `http://localhost:3000/oauth/google`
+const REDIRECT_URI = process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI
 
 export default function GoogleOauthButton() {
   const { oAuthLogin } = useAuth()

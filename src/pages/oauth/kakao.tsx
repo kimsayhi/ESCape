@@ -24,7 +24,7 @@ export default function KakaoSignupPage() {
         try {
           const signInWithKakao = async (token: string): Promise<void> => {
             try {
-              const redirectUri = `http://localhost:3000/oauth/${provider}` || ''
+              const redirectUri = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI || ''
               const postSignInKakaoResponse = await oAuthLogin({ redirectUri, token }, provider)
 
               const { accessToken, user } = postSignInKakaoResponse

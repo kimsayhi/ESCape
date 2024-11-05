@@ -19,7 +19,7 @@ export default function GoogleOauth() {
           code,
           client_id: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || '',
           client_secret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET || '',
-          redirect_uri: `http://localhost:3000/oauth/${provider}` || '',
+          redirect_uri: process.env.NEXT_PUBLIC_GOOGLE_REDIRECT_URI || '',
           grant_type: 'authorization_code',
         }),
         {
