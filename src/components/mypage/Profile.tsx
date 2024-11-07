@@ -49,7 +49,6 @@ export default function Profile({ data: userData, refetchUserInfo = () => {} }: 
   const toggleFollowModal = useCallback(() => setIsFollowModalOpen(prev => !prev), [])
   const toggleEditProfileModal = useCallback(() => setIsEditProfileModalOpen(prev => !prev), [])
 
-  /** 페이지를 이동하면 열려 있던 모달을 닫는 함수 */
   useEffect(() => {
     const handleRouteChange = () => {
       if (isFollowModalOpen) {

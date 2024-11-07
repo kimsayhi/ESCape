@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
 import { Spinner } from 'flowbite-react'
+import { useQueryClient } from '@tanstack/react-query'
 import { UserTypes } from '@/dtos/UserDto'
 import useInfiniteUserProduct from '@/hooks/user/useInfiniteUserProduct'
 import useInfiniteScroll from '@/hooks/useInfiniteScroll'
@@ -23,6 +25,8 @@ interface ProductCardListProps {
 }
 
 export default function ProductCardList({ data }: ProductCardListProps) {
+  const router = useRouter()
+  const queryClient = useQueryClient()
   const [activeMenu, setActiveMenu] = useState<number>(0)
   const {
     isPending,
@@ -39,16 +43,28 @@ export default function ProductCardList({ data }: ProductCardListProps) {
     hasMore: !!productList?.pageParams,
   })
 
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setActiveMenu(0)
+    }
+
+    router.events.on('routeChangeStart', handleRouteChange)
+
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange)
+    }
+  }, [router])
+
   const allProducts = productList?.pages.flatMap(page => page.list)
 
   const handleProductMenuClicked = (selectedId: number) => {
     setActiveMenu(selectedId)
   }
 
-  refetchProductList()
-
-  if (isPending) return <Spinner aria-label="로딩 중..." size="xl" />
-  if (isError) return <p>테마 리스트 불러오기에 실패하였습니다. 다시 시도해주세요.</p>
+  useEffect(() => {
+    queryClient.removeQueries({ queryKey: ['productType'] })
+    refetchProductList()
+  }, [queryClient, refetchProductList, activeMenu])
 
   return (
     <section>
@@ -63,6 +79,10 @@ export default function ProductCardList({ data }: ProductCardListProps) {
           </button>
         ))}
       </div>
+      {isPending && <Spinner aria-label="로딩 중..." size="xl" />}
+      {isError && (
+        <p className="font-normal text-brand-gray-dark">테마 리스트 불러오기에 실패하였습니다. 다시 시도해주세요.</p>
+      )}
       {allProducts && allProducts.length > 0 ? (
         <>
           <div className="grid grid-cols-2 gap-[15px] xl:grid-cols-3 xl:gap-5">
