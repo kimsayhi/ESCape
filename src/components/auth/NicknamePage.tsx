@@ -1,9 +1,14 @@
 import { useRouter } from 'next/router'
+import Image from 'next/image'
+import Link from 'next/link'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import { useState } from 'react'
+import { useAuth } from '@/contexts/AuthProvider'
 import oAuthSignUp from '@/libs/axios/oauth/oAuthSignUp'
+import { saveTokens } from '@/utils/authTokenStorage'
 import CustomButton from '@/components/@shared/ui/CustomButton'
 import { Spinner } from 'flowbite-react'
+import Logo from '../../../public/images/logo.svg'
 
 interface NicknameFormInputs {
   nickname: string
@@ -11,7 +16,8 @@ interface NicknameFormInputs {
 
 export default function NicknamePage() {
   const router = useRouter()
-  const { token, provider } = router.query // 쿼리에서 token과 provider 가져오기
+  const { oAuthLogin, updateMe } = useAuth()
+  const { token, provider } = router.query
   const [loading, setLoading] = useState(false)
 
   const {
@@ -22,9 +28,17 @@ export default function NicknamePage() {
   } = useForm<NicknameFormInputs>()
 
   const handleNicknameSubmit: SubmitHandler<NicknameFormInputs> = async data => {
+    if (!token || !provider) {
+      setError('nickname', {
+        type: 'manual',
+        message: '잘못된 요청입니다. 다시 시도해 주세요.',
+      })
+      return
+    }
+
     const formData = {
       nickname: data.nickname,
-      redirectUri: `${process.env.NEXT_PUBLIC_REDIRECT_URI}${provider}`, // 리다이렉트 URI
+      redirectUri: `${process.env.NEXT_PUBLIC_REDIRECT_URI}${provider}`,
       token: token as string,
     }
 
@@ -32,9 +46,29 @@ export default function NicknamePage() {
     try {
       const isSignUpSuccess = await oAuthSignUp(formData, provider as 'google' | 'kakao')
       if (isSignUpSuccess) {
-        router.push('/product')
+        const loginData = {
+          redirectUri: formData.redirectUri,
+          token: formData.token,
+        }
+
+        const response = await oAuthLogin(loginData, provider as 'google' | 'kakao')
+        const { accessToken, user } = response
+        const { nickname } = user
+
+        saveTokens({ accessToken })
+        updateMe({ nickname })
+
+        if (response) {
+          router.push('/product')
+        }
+      } else {
+        setError('nickname', {
+          type: 'manual',
+          message: '회원가입 중 문제가 발생했습니다. 다시 시도해 주세요.',
+        })
       }
-    } catch {
+    } catch (error) {
+      console.error('회원가입 중 오류:', error)
       setError('nickname', {
         type: 'server',
         message: '회원가입 중 문제가 발생했습니다. 다시 시도해 주세요.',
@@ -45,7 +79,12 @@ export default function NicknamePage() {
   }
 
   return (
-    <div className="mx-auto mt-[200px] max-w-[640px] p-3 text-white">
+    <div className="mx-auto mt-[200px] w-full max-w-[640px] p-3 text-white">
+      <div className="flex justify-center">
+        <Link href="/" className="inline-block py-10">
+          <Image width={200} src={Logo} alt="로고 이미지" />
+        </Link>
+      </div>
       <form onSubmit={handleSubmit(handleNicknameSubmit)}>
         <div className="mb-5">
           <span className="block pb-1">닉네임</span>

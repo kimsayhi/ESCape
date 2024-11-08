@@ -37,13 +37,15 @@ export default function SignInPage() {
 
   const onSubmit: SubmitHandler<SignInFormInputs> = async data => {
     setLoading(true)
+    setLoginErrorMessage('')
+
     try {
       const response = await login(data)
-      if (!response) {
-        const message = '이메일 혹은 비밀번호를 확인해주세요.'
-        setLoginErrorMessage(message)
-      } else {
+
+      if (response) {
         router.push('/product')
+      } else {
+        setLoginErrorMessage('이메일 혹은 비밀번호를 확인해주세요.')
       }
     } catch {
       setLoginErrorMessage('로그인 중 오류가 발생했습니다. 다시 시도해 주세요.')
@@ -51,6 +53,13 @@ export default function SignInPage() {
       setLoading(false)
     }
   }
+
+  const emailInputClass = `w-full rounded-xl border-2 border-solid border-brand-black-light bg-brand-black-medium px-6 py-4 text-brand-gray-dark focus:outline-blue-gradation ${
+    errors.email || loginErrorMessage ? 'border-red-500' : ''
+  }`
+  const passwordInputClass = `w-full rounded-xl border-2 border-solid border-brand-black-light bg-brand-black-medium px-6 py-4 text-brand-gray-dark focus:outline-blue-gradation ${
+    errors.password || loginErrorMessage ? 'border-red-500' : ''
+  }`
 
   return (
     <div className="mx-auto mt-20 max-w-md p-3 text-white">
@@ -64,9 +73,7 @@ export default function SignInPage() {
           <span className="block pb-1">이메일</span>
           <input
             type="text"
-            className={`w-full rounded-xl border-2 border-solid border-brand-black-light bg-brand-black-medium px-6 py-4 text-brand-gray-dark focus:outline-blue-gradation ${
-              errors.email || loginErrorMessage ? 'border-red-500' : ''
-            }`}
+            className={emailInputClass}
             placeholder="이메일을 입력해주세요"
             {...register('email', {
               required: '이메일은 필수 입력입니다.',
@@ -77,16 +84,13 @@ export default function SignInPage() {
             })}
           />
           {errors.email && <p className="mt-1 text-red-500">{errors.email.message}</p>}
-          {loginErrorMessage && <p className="mt-1 text-red-500">{loginErrorMessage}</p>}
         </div>
         <div className="mb-5">
           <span className="block pb-1">비밀번호</span>
           <div className="relative">
             <input
               type={showPassword ? 'text' : 'password'}
-              className={`w-full rounded-xl border-2 border-solid border-brand-black-light bg-brand-black-medium px-6 py-4 text-brand-gray-dark focus:outline-blue-gradation ${
-                errors.password || loginErrorMessage ? 'border-red-500' : ''
-              }`}
+              className={passwordInputClass}
               placeholder="비밀번호를 입력해주세요"
               {...register('password', {
                 required: '비밀번호는 필수 입력입니다.',
@@ -106,6 +110,11 @@ export default function SignInPage() {
             </button>
           </div>
           {errors.password && <p className="mt-1 text-red-500">{errors.password.message}</p>}
+          {loginErrorMessage && (
+            <p className="mb-1 text-red-500" aria-live="assertive">
+              {loginErrorMessage}
+            </p>
+          )}
         </div>
         <div className="pt-2">
           <CustomButton styleType="primary" type="submit" active>

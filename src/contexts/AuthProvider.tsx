@@ -17,7 +17,7 @@ interface updateMeParams {
 interface AuthValues {
   user: CommonUserTypes | null
   isPending: boolean
-  login: (formData: SignInForm) => Promise<boolean | { success: boolean; message: string }>
+  login: (formData: SignInForm) => Promise<boolean>
   logout: () => void
   updateMe: (updatedInfo: updateMeParams) => void
   oAuthLogin: (formData: OAuthSignInForm, provider: OAuthProviders) => Promise<SignInReturn>
@@ -68,13 +68,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const login = useCallback(
-    async (formData: SignInForm): Promise<boolean | { success: boolean; message: string }> => {
+    async (formData: SignInForm): Promise<boolean> => {
       try {
-        await signIn(formData)
-        toaster('success', '로그인에 성공하였습니다.')
-        await getMe()
-        return true
-      } catch {
+        const signInSuccess = await signIn(formData)
+
+        if (signInSuccess) {
+          toaster('success', '로그인에 성공하였습니다.')
+          await getMe()
+          return true
+        }
+        return false
+      } catch (error) {
+        console.error('로그인 중 오류:', error)
         return false
       }
     },
