@@ -1,7 +1,7 @@
 import { useAuth } from '@/contexts/AuthProvider'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
-import { saveTokens } from '@/utils/authTokenStorage'
+// import { saveTokens } from '@/utils/authTokenStorage'
 import { Spinner } from 'flowbite-react'
 import { AxiosError } from 'axios'
 
@@ -20,20 +20,26 @@ export default function KakaoSignupPage() {
         try {
           const signInWithKakao = async (token: string): Promise<void> => {
             try {
-              const redirectUri = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI || ''
+              const beforeToken = localStorage.getItem('accessToken')
+
+              /** const redirectUri = process.env.NEXT_PUBLIC_KAKAO_REDIRECT_URI || ''
               const postSignInKakaoResponse = await oAuthLogin({ redirectUri, token }, provider)
 
               const { accessToken, user } = postSignInKakaoResponse
               const { nickname } = user
 
               saveTokens({ accessToken })
-              updateMe({ nickname })
+              updateMe({ nickname }) 
+              주석처리 - 김세환
+              */
+
               /**
                * 간편 로그인 api 호출 응답에 신규 사용자 구분이 없기 때문에
                * 닉네임 길이로 신규 사용자인지 아닌지 분별
                */
 
-              if (user.nickname.length > 10) {
+              // if (user.nickname.length > 10) {
+              if (!beforeToken) {
                 router.push({
                   pathname: '/oauth/signup/kakao',
                   query: { token: code, provider },
