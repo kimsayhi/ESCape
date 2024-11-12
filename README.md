@@ -121,19 +121,19 @@ ESCape
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: center;"><strong>메인</strong></td>
+      <th style="text-align: center;">메인</th>
       <td style="text-align: center;"><img src="./public/readme/main.gif" alt="메인 페이지" /></td>
     </tr>
     <tr>
-      <td style="text-align: center;"><strong>로그인</strong></td>
+      <th style="text-align: center;">로그인</th>
       <td style="text-align: center;"><img src="./public/readme/login.gif" alt="로그인 페이지" /></td>
     </tr>
     <tr>
-      <td style="text-align: center;"><strong>회원가입</strong></td>
+      <th style="text-align: center;">회원가입</th>
       <td style="text-align: center;"><img src="./public/readme/signup.gif" alt="회원가입 페이지" /></td>
     </tr>
     <tr>
-      <td style="text-align: center;"><strong>마이페이지</strong></td>
+      <th style="text-align: center;">마이페이지</th>
       <td style="text-align: center;">
         <img src="./public/readme/mypage.gif" alt="마이페이지 1" />
         <img src="./public/readme/mypage-2.gif" alt="마이페이지 2" />
@@ -142,7 +142,7 @@ ESCape
       </td>
     </tr>
     <tr>
-      <td style="text-align: center;"><strong>자유게시판</strong></td>
+      <th style="text-align: center;">자유게시판</th>
       <td style="text-align: center;">
         <img src="./public/readme/board-1.gif" alt="자유게시판 1" />
         <img src="./public/readme/board-2.gif" alt="자유게시판 2" />
@@ -151,11 +151,11 @@ ESCape
       </td>
     </tr>
     <tr>
-      <td style="text-align: center;"><strong>자유게시판 글쓰기</strong></td>
+      <th style="text-align: center;">자유게시판 글쓰기</th>
       <td style="text-align: center;"><img src="./public/readme/board-6.gif" alt="자유게시판 글쓰기" /></td>
     </tr>
     <tr>
-      <td style="text-align: center;"><strong>자유게시판 상세</strong></td>
+      <th style="text-align: center;">자유게시판 상세</th>
       <td style="text-align: center;">
         <img src="./public/readme/board-detail-1.gif" alt="자유게시판 상세 1" />
         <img src="./public/readme/board-detail-2.gif" alt="자유게시판 상세 2" />
@@ -165,7 +165,7 @@ ESCape
       </td>
     </tr>
     <tr>
-      <td style="text-align: center;"><strong>지역별 테마</strong></td>
+      <th style="text-align: center;">지역별 테마</th>
       <td style="text-align: center;">
         <img src="./public/readme/theme-1.gif" alt="지역별 테마 1" />
         <img src="./public/readme/theme-2.gif" alt="지역별 테마 2" />
@@ -174,7 +174,7 @@ ESCape
       </td>
     </tr>
     <tr>
-      <td style="text-align: center;"><strong>타인 페이지</strong></td>
+      <th style="text-align: center;"><strong>타인 페이지</strong></th>
       <td style="text-align: center;">
         <img src="./public/readme/user-1.gif" alt="타인 페이지 1" />
         <img src="./public/readme/user-2.gif" alt="타인 페이지 2" />
@@ -182,7 +182,7 @@ ESCape
       </td>
     </tr>
     <tr>
-      <td style="text-align: center;"><strong>테마 상세페이지</strong></td>
+      <th style="text-align: center;"><strong>테마 상세페이지</strong></th>
       <td style="text-align: center;">
         <img src="./public/readme/theme-detail-1.gif" alt="테마 상세 1" />
         <img src="./public/readme/theme-detail-2.gif" alt="테마 상세 2" />
