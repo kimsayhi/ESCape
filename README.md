@@ -136,9 +136,9 @@ ESCape
       <td style="text-align: center;"><strong>마이페이지</strong></td>
       <td style="text-align: center;">
         <img src="./public/readme/mypage.gif" alt="마이페이지 1" />
-        <img src="./public/readme/mypage-2.gif" alt="마이페이지 2"style="width: 70%; " />
+        <img src="./public/readme/mypage-2.gif" alt="마이페이지 2" />
         <img src="./public/readme/mypage-3.gif" alt="마이페이지 3" />
-        <img src="./public/readme/mypage-4.gif" alt="마이페이지 4"style="width: 70%; " />
+        <img src="./public/readme/mypage-4.gif" alt="마이페이지 4" />
       </td>
     </tr>
     <tr>
