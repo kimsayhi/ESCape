@@ -115,83 +115,83 @@ ESCape
 <table>
   <thead>
     <tr>
-      <th style="width: 80px; text-align: center;">구분</th>
-      <th style=" text-align: center;">구현 페이지</th>
+      <th style="text-align: center;">구분</th>
+      <th style="text-align: center;">구현 페이지</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td style="text-align: center;"><strong>메인</strong></td>
-      <td style="text-align: center;"><img src="./public/readme/main.gif" alt="메인 페이지" style="width: 70%; "/></td>
+      <td style="text-align: center;"><img src="./public/readme/main.gif" alt="메인 페이지" /></td>
     </tr>
     <tr>
       <td style="text-align: center;"><strong>로그인</strong></td>
-      <td style="text-align: center;"><img src="./public/readme/login.gif" alt="로그인 페이지" style="width: 70%; "/></td>
+      <td style="text-align: center;"><img src="./public/readme/login.gif" alt="로그인 페이지" /></td>
     </tr>
     <tr>
       <td style="text-align: center;"><strong>회원가입</strong></td>
-      <td style="text-align: center;"><img src="./public/readme/signup.gif" alt="회원가입 페이지" style="width: 70%; "/></td>
+      <td style="text-align: center;"><img src="./public/readme/signup.gif" alt="회원가입 페이지" /></td>
     </tr>
     <tr>
       <td style="text-align: center;"><strong>마이페이지</strong></td>
       <td style="text-align: center;">
-        <img src="./public/readme/mypage.gif" alt="마이페이지 1" style="width: 70%; "/>
+        <img src="./public/readme/mypage.gif" alt="마이페이지 1" />
         <img src="./public/readme/mypage-2.gif" alt="마이페이지 2"style="width: 70%; " />
-        <img src="./public/readme/mypage-3.gif" alt="마이페이지 3" style="width: 70%; "/>
+        <img src="./public/readme/mypage-3.gif" alt="마이페이지 3" />
         <img src="./public/readme/mypage-4.gif" alt="마이페이지 4"style="width: 70%; " />
       </td>
     </tr>
     <tr>
       <td style="text-align: center;"><strong>자유게시판</strong></td>
       <td style="text-align: center;">
-        <img src="./public/readme/board-1.gif" alt="자유게시판 1" style="width: 70%; "/>
-        <img src="./public/readme/board-2.gif" alt="자유게시판 2" style="width: 70%; "/>
-        <img src="./public/readme/board-3.gif" alt="자유게시판 3" style="width: 70%; "/>
-        <img src="./public/readme/board-4.gif" alt="자유게시판 4" style="width: 70%; "/>
+        <img src="./public/readme/board-1.gif" alt="자유게시판 1" />
+        <img src="./public/readme/board-2.gif" alt="자유게시판 2" />
+        <img src="./public/readme/board-3.gif" alt="자유게시판 3" />
+        <img src="./public/readme/board-4.gif" alt="자유게시판 4" />
       </td>
     </tr>
     <tr>
       <td style="text-align: center;"><strong>자유게시판 글쓰기</strong></td>
-      <td style="text-align: center;"><img src="./public/readme/board-6.gif" alt="자유게시판 글쓰기" style="width: 70%; "/></td>
+      <td style="text-align: center;"><img src="./public/readme/board-6.gif" alt="자유게시판 글쓰기" /></td>
     </tr>
     <tr>
       <td style="text-align: center;"><strong>자유게시판 상세</strong></td>
       <td style="text-align: center;">
-        <img src="./public/readme/board-detail-1.gif" alt="자유게시판 상세 1" style="width: 70%; "/>
-        <img src="./public/readme/board-detail-2.gif" alt="자유게시판 상세 2" style="width: 70%; "/>
-        <img src="./public/readme/board-detail-3.gif" alt="자유게시판 상세 3" style="width: 70%; "/>
-        <img src="./public/readme/board-detail-4.gif" alt="자유게시판 상세 4" style="width: 70%; "/>
-        <img src="./public/readme/board-detail-5.gif" alt="자유게시판 상세 5" style="width: 70%; "/>
+        <img src="./public/readme/board-detail-1.gif" alt="자유게시판 상세 1" />
+        <img src="./public/readme/board-detail-2.gif" alt="자유게시판 상세 2" />
+        <img src="./public/readme/board-detail-3.gif" alt="자유게시판 상세 3" />
+        <img src="./public/readme/board-detail-4.gif" alt="자유게시판 상세 4" />
+        <img src="./public/readme/board-detail-5.gif" alt="자유게시판 상세 5" />
       </td>
     </tr>
     <tr>
       <td style="text-align: center;"><strong>지역별 테마</strong></td>
       <td style="text-align: center;">
-        <img src="./public/readme/theme-1.gif" alt="지역별 테마 1" style="width: 70%; "/>
-        <img src="./public/readme/theme-2.gif" alt="지역별 테마 2" style="width: 70%; "/>
-        <img src="./public/readme/theme-3.gif" alt="지역별 테마 3" style="width: 70%; "/>
-        <img src="./public/readme/theme-4.gif" alt="지역별 테마 4" style="width: 70%; "/>
+        <img src="./public/readme/theme-1.gif" alt="지역별 테마 1" />
+        <img src="./public/readme/theme-2.gif" alt="지역별 테마 2" />
+        <img src="./public/readme/theme-3.gif" alt="지역별 테마 3" />
+        <img src="./public/readme/theme-4.gif" alt="지역별 테마 4" />
       </td>
     </tr>
     <tr>
       <td style="text-align: center;"><strong>타인 페이지</strong></td>
       <td style="text-align: center;">
-        <img src="./public/readme/user-1.gif" alt="타인 페이지 1" style="width: 70%; "/>
-        <img src="./public/readme/user-2.gif" alt="타인 페이지 2" style="width: 70%; "/>
-        <img src="./public/readme/user-3.gif" alt="타인 페이지 3" style="width: 70%; "/>
+        <img src="./public/readme/user-1.gif" alt="타인 페이지 1" />
+        <img src="./public/readme/user-2.gif" alt="타인 페이지 2" />
+        <img src="./public/readme/user-3.gif" alt="타인 페이지 3" />
       </td>
     </tr>
     <tr>
       <td style="text-align: center;"><strong>테마 상세페이지</strong></td>
       <td style="text-align: center;">
-        <img src="./public/readme/theme-detail-1.gif" alt="테마 상세 1" style="width: 70%; "/>
-        <img src="./public/readme/theme-detail-2.gif" alt="테마 상세 2" style="width: 70%; "/>
-        <img src="./public/readme/theme-detail-3.gif" alt="테마 상세 3" style="width: 70%; "/>
-        <img src="./public/readme/theme-detail-4.gif" alt="테마 상세 4" style="width: 70%; "/>
-        <img src="./public/readme/theme-detail-5.gif" alt="테마 상세 5" style="width: 70%; "/>
-        <img src="./public/readme/theme-detail-6.gif" alt="테마 상세 6" style="width: 70%; "/>
-        <img src="./public/readme/theme-detail-7.gif" alt="테마 상세 7" style="width: 70%; "/>
-        <img src="./public/readme/theme-detail-8.gif" alt="테마 상세 8" style="width: 70%; "/>
+        <img src="./public/readme/theme-detail-1.gif" alt="테마 상세 1" />
+        <img src="./public/readme/theme-detail-2.gif" alt="테마 상세 2" />
+        <img src="./public/readme/theme-detail-3.gif" alt="테마 상세 3" />
+        <img src="./public/readme/theme-detail-4.gif" alt="테마 상세 4" />
+        <img src="./public/readme/theme-detail-5.gif" alt="테마 상세 5" />
+        <img src="./public/readme/theme-detail-6.gif" alt="테마 상세 6" />
+        <img src="./public/readme/theme-detail-7.gif" alt="테마 상세 7" />
+        <img src="./public/readme/theme-detail-8.gif" alt="테마 상세 8" />
       </td>
     </tr>
   </tbody>
