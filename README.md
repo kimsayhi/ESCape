@@ -158,7 +158,7 @@ ESCape
       <td style="text-align: center;"><strong>자유게시판 상세</strong></td>
       <td style="text-align: center;">
         <img src="./public/readme/board-detail-1.gif" alt="자유게시판 상세 1" style="width: 70%; "/>
-        <img src="./public/readme/board-detail-2.gif" alt="자유게시판 상세 2" />
+        <img src="./public/readme/board-detail-2.gif" alt="자유게시판 상세 2" style="width: 70%; "/>
         <img src="./public/readme/board-detail-3.gif" alt="자유게시판 상세 3" style="width: 70%; "/>
         <img src="./public/readme/board-detail-4.gif" alt="자유게시판 상세 4" style="width: 70%; "/>
         <img src="./public/readme/board-detail-5.gif" alt="자유게시판 상세 5" style="width: 70%; "/>
