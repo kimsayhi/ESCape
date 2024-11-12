@@ -20,11 +20,11 @@
   </thead>
   <tbody>
     <tr>
-      <td style="text-align: center;"> <img src="./public/readme/profile_jm.jpeg" alt="오정민 프로필 사진" width="80" style="margin:0 auto"> </td>
-      <td style="text-align: center;"> <img src="./public/readme/profile_sh.png" alt="김세환 프로필 사진" width="80" style="margin:0 auto"> </td>
-      <td style="text-align: center;"> <img src="./public/readme/profile_jh.jpeg" alt="김종화 프로필 사진" width="80" style="margin:0 auto"> </td>
-      <td style="text-align: center;"> <img src="./public/readme/profile_yj.png" alt="나윤주 프로필 사진" width="80" style="margin:0 auto"> </td>
-      <td style="text-align: center;"> <img src="./public/readme/profile_sjh.png" alt="서지훈 프로필 사진" width="80" style="margin:0 auto"> </td>
+      <td style="text-align: center;"> <img src="./public/readme/profile_jm.jpeg" alt="오정민 프로필 사진" > </td>
+      <td style="text-align: center;"> <img src="./public/readme/profile_sh.png" alt="김세환 프로필 사진" > </td>
+      <td style="text-align: center;"> <img src="./public/readme/profile_jh.jpeg" alt="김종화 프로필 사진" > </td>
+      <td style="text-align: center;"> <img src="./public/readme/profile_yj.png" alt="나윤주 프로필 사진" > </td>
+      <td style="text-align: center;"> <img src="./public/readme/profile_sjh.png" alt="서지훈 프로필 사진" > </td>
     </tr>
     <tr>
       <td style="text-align: center;">CSS / Tailwind 설정<br>데이터 수집<br> 마이 / 유저 페이지</td>
@@ -115,7 +115,7 @@ ESCape
 <table>
   <thead>
     <tr>
-      <th style="text-align: center;">구분</th>
+      <th style="text-align: center;" width="150">구분</th>
       <th style="text-align: center;">구현 페이지</th>
     </tr>
   </thead>
