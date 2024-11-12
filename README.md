@@ -114,8 +114,8 @@ ESCape
 <table>
   <thead>
     <tr>
-      <th style="width: 20%; text-align: center;">구분</th>
-      <th style="width: 80%; text-align: center;">구현 페이지</th>
+      <th style="width: 80px; text-align: center;">구분</th>
+      <th style=" text-align: center;">구현 페이지</th>
     </tr>
   </thead>
   <tbody>
@@ -213,6 +213,8 @@ ESCape
         <tr><td>“서로를 존중하며 다양한 의견을 편하게 제시할 수 있는 분위기를 조성함”</td>
     </tr> 
   </tbody>
+  </table>
+  <table>
   <thead>
     <tr>
     <th >아쉬운 점</th> 
@@ -224,6 +226,8 @@ ESCape
         <tr><td>“오늘의 TodoList를 작성했지만, 예상치 못한 일이 생기거나 집중력이 떨어져 계획한 일을 끝내지 못한 경우가 많았음"</td> 
     </tr> 
   </tbody>
+  </table> 
+  <table>
   <thead>
     <tr>
       <th >개선할 점</th> 
